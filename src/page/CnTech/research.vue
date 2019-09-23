@@ -1,0 +1,50 @@
+<template>
+ <div class="research">
+    <div class="aptitude researchPic" v-html="researchList.Content"></div>
+ </div>
+</template>
+
+<script>
+export default {
+ data() {
+    return {
+        researchList:[]
+    }
+ },
+ methods: {
+
+ },
+ mounted(){
+    //  研发体系
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        DataJSONString: JSON.stringify({ TechInnovationType: 1 }),
+        Resource: "TechInnovation",
+        PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        this.researchList = JSON.parse(res.data).Rows[0];
+    }).catch((err)=>{
+        throw err;
+    });
+ },
+ components: {
+
+ }
+}
+</script>
+
+<style scoped lang="less">
+.research{
+    .researchPic{
+        /deep/div{
+            display: flex;
+            justify-content: center;
+            img{
+                margin-top: .4rem;
+                width: 7.57rem;
+                height: 9.46rem;
+            }
+        }
+    }
+}
+</style>

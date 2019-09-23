@@ -1,0 +1,87 @@
+<template>
+ <div class="honor">
+    <SmallBanner>
+        <span>关于我们</span><span class="arrows"></span><span>荣誉资质</span><span class="arrows"></span>
+        <img :src="imgUrl" slot="banner">
+        <h4 slot="title">荣誉资质</h4>
+    </SmallBanner>
+    <div class="hon_content" v-html="honorList.Content"></div>
+ </div>
+</template>
+
+<script>
+import SmallBanner from '../../component/smallBanner'
+export default {
+ data() {
+    return {
+        honorList:[],
+        imgUrl:""
+    }
+ },
+ methods: {
+
+ },
+mounted(){
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['ImagePath'],
+        DataJSONString: JSON.stringify({CommonInfoType:7}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let img = JSON.parse(res.data).Rows[0];
+        this.imgUrl = img.ImagePath;
+    }).catch((err)=>{
+        throw err;
+    });
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchAllEnabled",
+        DataJSONString: JSON.stringify({}),
+        Resource: "HonorAndQualification",
+        PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        this.honorList = JSON.parse(res.data).Rows[0];
+    }).catch((err)=>{
+      throw err;
+    });
+ },
+ components: {
+    SmallBanner
+ }
+}
+</script>
+
+<style scoped lang="less">
+.hon_content{
+    font-size: .14rem;
+    padding: 0 .20rem .20rem .20rem;
+    /deep/p{
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: .26rem;
+        letter-spacing: 0rem;
+        color: #333333;
+        &:nth-child(7)::before{
+            width: 0;
+            height: 0;
+        }
+        &:last-child::before{
+            width: 0;
+            height: 0;
+        }
+        &:before {
+            content: "";
+            display: inline-block;
+            width: .08rem;
+            height: .08rem;
+            background-color: #004387;
+            border-radius: 50%;
+            margin-right: .07rem;
+        }
+    }
+    span{
+        color: #004387;
+        margin-right: .07rem;
+    }
+}
+</style>
