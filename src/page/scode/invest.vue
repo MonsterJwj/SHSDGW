@@ -7,9 +7,11 @@
      </SmallBanner>
      <div class="cont">
         <div class="scodeImg">
-            <img src="../../assets/img/scode_f.jpg">
+            <img :src="contImg">
         </div>
-        <div class="txt" v-html="investList.Content"></div>
+        <div class="txtCont" v-for="(item,index) in investList" :key="index">
+            <div class="txt" v-html="item.Content"></div>
+        </div>
      </div>
  </div>
 </template>
@@ -20,7 +22,8 @@ export default {
  data() {
     return {
         investList:[],
-        imgUrl:""
+        imgUrl:"",
+        contImg:""
     }
  },
  mounted(){
@@ -36,16 +39,32 @@ export default {
     }).catch((err)=>{
         throw err;
     });
+
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
         DataJSONString: JSON.stringify({}),
         Resource: "Investment",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.investList = JSON.parse(res.data).Rows[0];
-        console.log(this.investList);
+        this.investList = JSON.parse(res.data).Rows;
     }).catch((err)=>{
         throw err;
+    });
+
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
+        DataJSONString: JSON.stringify({CommonInfoType:102}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let list = JSON.parse(res.data).Rows[2];
+        // 截取图片路径
+        let img = list.Content;
+        var regex = /<img.*?src="(.*?)"/;
+        this.contImg = regex.exec(img)[1];
+    }).catch((err)=>{
+      throw err;
     });
  },
  components: {
@@ -62,6 +81,7 @@ export default {
         background: #f7f7f7;
         img{
             width: 11.1rem;
+            height: 3.67rem;
         }
     }
     .txt{

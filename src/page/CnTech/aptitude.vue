@@ -2,7 +2,7 @@
  <div class="aptitude">
      <!-- 科技资质 -->
     <div class="aptitude" v-for="(item,index) in aptitudeList" :key="index">
-        <router-link :to='"/cntech/aptitudedetail/"+item.ID' @click.native="toNewDetail" target="_blank">
+        <router-link :to='"/cntech/aptitudedetail/"+item.ID' target="_blank">
             <div class="describe">
                 <h6>{{item.Name}}</h6>
                 <p class="time">{{item.NewsDate}}</p>
@@ -15,16 +15,10 @@
 </template>
 
 <script>
-import Tab from '../../component/tab'
 export default {
  data() {
     return {
         aptitudeList:[]
-    }
- },
- methods: {
-    toNewDetail(){
-        this.$store.commit("changeNew");
     }
  },
  mounted(){
@@ -39,9 +33,6 @@ export default {
     }).catch((err)=>{
       throw err;
     });
- },
- components:{
-    Tab
  }
 }
 </script>

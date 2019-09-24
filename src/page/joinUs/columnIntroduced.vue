@@ -2,7 +2,7 @@
  <div class="column">
     <SmallBanner>
         <span>加入我们</span><span class="arrows"></span>
-        <img src="../../assets/img/banner.jpg" slot="banner">
+        <img :src="imgUrl" slot="banner">
     </SmallBanner>
     <div class="contBox">
         <ul class="introduceList">
@@ -45,7 +45,9 @@ export default {
         // 人才建设
         talentList:[],
         // 荣誉绩效
-        honorList:[]
+        honorList:[],
+        // banner图片路径
+        imgUrl:""
     }
  },
  methods: {
@@ -58,6 +60,18 @@ export default {
     }
  },
  mounted(){
+     this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['ImagePath'],
+        DataJSONString: JSON.stringify({CommonInfoType:20}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let img = JSON.parse(res.data).Rows[0];
+        this.imgUrl = img.ImagePath;
+    }).catch((err)=>{
+        throw err;
+    });
      //110.加入我们-职业建设；111.加入我们-人才建设；112.加入我们-荣誉绩效
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
@@ -99,9 +113,9 @@ export default {
     SmallBanner
  },
  watch:{
-     $route(){
-         this.listenRoute();
-     }
+    $route(){
+       this.listenRoute();
+    }
  }
 }
 </script>

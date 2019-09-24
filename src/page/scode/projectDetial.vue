@@ -126,6 +126,24 @@ export default {
             }
         }
     }
+    .introduce{
+        /deep/p{
+            font-size: .14rem;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: .24rem;
+            letter-spacing: 0;
+            color: #333333;
+        }
+        /deep/li{
+            font-size: .14rem;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: .24rem;
+            letter-spacing: 0;
+            color: #333333;
+        }
+    }
     .detPic{
         margin-left: .43rem;
         width: 5.6rem;

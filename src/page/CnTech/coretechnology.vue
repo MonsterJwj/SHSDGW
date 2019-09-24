@@ -1,6 +1,15 @@
 <template>
  <div class="core">
-       核心技术
+       <div class="aptitude" v-for="(item,index) in coretechList" :key="index">
+       <router-link :to='"/cntech/coredetia/"+item.ID' target="_blank">
+              <div class="describe">
+                     <h6>{{item.Name}}</h6>
+                     <p class="time">{{item.NewsDate}}</p>
+                     <p>{{item.Overview}}</p>
+              </div>
+              <div class="lookXiangxi"><img src="../../assets/img/xiangxi.jpg"></div>
+       </router-link>
+    </div>
  </div>
 </template>
 
@@ -31,6 +40,50 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.core{
+    .researchPic{
+        /deep/div{
+            display: flex;
+            justify-content: center;
+            img{
+                margin-top: .4rem;
+                width: 7.57rem;
+                height: 9.46rem;
+            }
+        }
+    }
+    .aptitude{
+        padding: .32rem 0;
+        border-bottom: .01rem dashed #b2b2b2;
+        a{
+            display: flex;
+            align-items: center;
+            .describe{
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0rem;
+                color: #333333;
+                h6{
+                    font-size: .18rem;
+                    line-height: .36rem;
+                    font-weight: bold;
+                }
+                .time{
+                    font-size: .12rem;
+                    line-height: .36rem;
+                    color: #666666;
+                }
+                p{
+                    font-size: .14rem;
+                    line-height: .24rem;
+                }
+            }
+            
+        }
+        .lookXiangxi{
+            margin-left: .71rem;
+        }
+    }
+}
 </style>

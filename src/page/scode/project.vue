@@ -34,7 +34,7 @@
             <li v-for="(item,index) in projectCont" :key="index">
                 <router-link :to='"/scode/project/projectdetial/"+item.ID' target="_blank">
                     <div class="introduce">
-                        <img :src="item.SliderBar">
+                        <img :src="item.Memo">
                         <p>{{item.Name}}</p>
                     </div>
                     <p>{{item.Overview}}</p>
@@ -87,9 +87,9 @@ export default {
         this.projectCont = JSON.parse(res.data).Rows;
         // 截取图片路径
         for(let i=0;i<this.projectCont.length;i++){
-            let img = this.projectCont[i].SliderBar;
+            let img = this.projectCont[i].Memo;
             var regex = /<img.*?src="(.*?)"/;
-            this.projectCont[i].SliderBar = regex.exec(img)[1];
+            this.projectCont[i].Memo = regex.exec(img)[1];
         }
     }).catch((err)=>{
       throw err;

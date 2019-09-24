@@ -7,7 +7,7 @@
      </SmallBanner>
      <div class="cont">
         <div class="scodeImg">
-            <img src="../../assets/img/scode_c.jpg">
+            <img :src="contImg">
         </div>
         <div class="txt">
             <span>装备制造</span>
@@ -32,11 +32,12 @@ export default {
         componentList:[],
         // 防水材料请求过来的数据
         waterproofList:[],
-        imgUrl:""
+        imgUrl:"",
+        contImg:""
     }
  },
  mounted(){
-     this.$axios.post('/api/Table/TableAction',{
+    this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
         FieldNames:['ImagePath'],
         DataJSONString: JSON.stringify({CommonInfoType:13}),
@@ -48,6 +49,23 @@ export default {
     }).catch((err)=>{
         throw err;
     });
+
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
+        DataJSONString: JSON.stringify({CommonInfoType:102}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let list = JSON.parse(res.data).Rows[0];
+        // 截取图片路径
+        let img = list.Content;
+        var regex = /<img.*?src="(.*?)"/;
+        this.contImg = regex.exec(img)[1];
+    }).catch((err)=>{
+      throw err;
+    });
+
     //  装备制造
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
@@ -96,7 +114,7 @@ export default {
         background: #f7f7f7;
         img{
             width: 11.1rem;
-            height: 3.6rem;
+            height: 3.67rem;
         }
     }
     span{

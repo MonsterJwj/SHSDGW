@@ -43,6 +43,7 @@ import Aptitude from '../page/CnTech/aptitude.vue'
 import AptitudeDetail from '../page/CnTech/aptitudeDetail.vue'
 import Research from '../page/CnTech/research.vue'
 import CoreTechnology from '../page/CnTech/coretechnology.vue'
+import CoreDetia from '../page/CnTech/coreDetial.vue'
 // 站内搜索
 import Search from '../page/search.vue'
 
@@ -254,6 +255,11 @@ export default new Router({
           path: 'aptitudedetail/:id',
           name: 'AptitudeDetail',
           component: AptitudeDetail
+        },
+        {
+          path: 'coredetia/:id',
+          name: 'CoreDetia',
+          component: CoreDetia
         }
       ],
       redirect: '/cntech/research'

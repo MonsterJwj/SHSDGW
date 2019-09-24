@@ -1,7 +1,7 @@
 <template>
     <div class="Detail">
         <div class="return">
-            <router-link to="/cntech/aptitude"><span></span>返回</router-link>
+            <router-link to="/cntech/coretechnology"><span></span>返回</router-link>
         </div>
         <div class="detailDec">
             <h5>{{detialList.Name}}</h5>
@@ -23,7 +23,7 @@ export default {
      // 科技资质与获奖祥情表
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
-        DataJSONString: JSON.stringify({ TechInnovationType: 2 }),
+        DataJSONString: JSON.stringify({ TechInnovationType: 3 }),
         Resource: "TechInnovation",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
@@ -74,6 +74,7 @@ export default {
             font-size: .24rem;
             font-stretch: normal;
             line-height: .36rem;
+            margin-bottom: .2rem;
         }
         .textDec{
             width: 80%;
@@ -81,17 +82,12 @@ export default {
                 font-size: .14rem;
                 color: #333333;
                 line-height: .26rem;
-                margin-bottom: .26rem;
-                &:first-child{
-                    margin: .19rem 0 .32rem 0;
-                    display: flex;
-                    justify-content: center;
-                    img{
-                        width: 5.57rem;
-                        height: 3.95rem;
-                        &:nth-child(2){
-                            margin: 0 .10rem;
-                        }
+                img{
+                    margin: .2rem auto;
+                    width: 5.57rem;
+                    height: 3.95rem;
+                    &:nth-child(2){
+                        margin: 0 .10rem;
                     }
                 }
             }

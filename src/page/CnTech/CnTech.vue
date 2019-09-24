@@ -3,7 +3,7 @@
     <SmallBanner> 
         <div v-show="titleShow == 1"><span>科技创新</span><span class="arrows"></span></div>
         <div v-show="titleShow == 2"><span>科技创新</span><span class="arrows"></span><span>科技资质与获奖</span><span class="arrows"></span><span>详情</span><span class="arrows"></span></div>
-        <!-- <div v-show="titleShow == 3"><span>科技创新</span><span class="arrows"></span><span>核心科技</span><span class="arrows"></span><span>详情</span><span class="arrows"></span></div> -->
+        <div v-show="titleShow == 3"><span>科技创新</span><span class="arrows"></span><span>核心科技</span><span class="arrows"></span><span>详情</span><span class="arrows"></span></div>
         <img :src="imgUrl" slot="banner">    
     </SmallBanner>
     <div class="cntechCont">
@@ -62,21 +62,22 @@ export default {
     this.listenRoute();
  },
  methods:{
-    //  如果核心科技  也有详情页，在做两个判断  使用this.$route.path == "/cntech/aptitude"+this.$route.params.id
     listenRoute(){
         if(this.$route.path == "/cntech/aptitude" || this.$route.path == "/cntech/research" || this.$route.path == "/cntech/coretechnology"){
             this.navShow = true;
             this.titleShow = 1;
-        }else{
+        }else if(this.$route.path == "/cntech/aptitudedetail/"+this.$route.params.id){
             this.navShow = false;
             this.titleShow = 2;
+        }else{
+            this.navShow = false;
+            this.titleShow = 3;
         }
     }
  },
  watch:{
     $route(){
        this.listenRoute();
-       console.log(this.$route.path);
     }
  }
 }
