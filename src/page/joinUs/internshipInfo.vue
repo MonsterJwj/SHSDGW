@@ -51,7 +51,7 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <span class="apply">立即申请</span>
+                        <a :href="companyInfo[0].URLLink" class="apply">立即申请</a>
                     </el-form-item>
                     </el-form>
                 </template>
@@ -209,7 +209,7 @@ export default {
     //  获取对应招聘类型  公司的企业信息
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchID",
-        FieldNames:['Name','Content','SliderBar'],
+        FieldNames:['Name','Content','SliderBar','URLLink'],
         DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "CompanyInfo",
     }).then((res)=>{
@@ -228,6 +228,7 @@ export default {
             let imgArr = arr[m].split("\"");
             this.imgList.push(imgArr[1]);
         }
+        
     }).catch((err)=>{
         throw err;
     })

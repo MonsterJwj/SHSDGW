@@ -3,8 +3,8 @@
     <img src="../assets/img/logo.png" alt="上海隧道">
     <div class="sea">
         <div class="input">
-            <input type="text" placeholder="站内搜索" @keyup.enter="search">
-            <router-link to="/search"></router-link>
+            <input type="text" placeholder="站内搜索" @keyup.enter="search" v-model="inputVal">
+            <span @click="search()"></span>
         </div>
     </div>
  </div>
@@ -14,14 +14,17 @@
 export default {
  data() {
     return {
-        
+        inputVal:""
     }
  },
  methods: {
     search(){
-       let inpValue = document.getElementsByTagName("input")[0].value;
         // 跳转传参
-       this.$router.push({path:'/search',query:{seaValue:inpValue}});
+        if(this.inputVal == ""){
+            alert("请输入关键字！");
+        }else{
+            this.$router.push({path:'/search',query:{seaValue:this.inputVal}});
+        }
     }
  },
  watch:{
@@ -54,6 +57,8 @@ export default {
             justify-content: center;
             background: url("../assets/img/search.png") no-repeat;
             background-size: 100%;
+
+            position: relative;
             input{
                 flex: 1;
                 height: .35rem;
@@ -63,7 +68,7 @@ export default {
                 border: none;
                 font-size: .14rem;
             }
-            a{
+            span{
                 display: inline-block;
                 width: .40rem;
                 height: .35rem;

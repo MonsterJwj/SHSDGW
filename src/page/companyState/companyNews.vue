@@ -205,6 +205,9 @@ export default {
                 font-size: .12rem;
             }
         }
+        .main_dec{
+            flex: 1;
+        }
     }
     .news{
         display: flex;

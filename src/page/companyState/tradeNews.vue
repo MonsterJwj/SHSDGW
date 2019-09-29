@@ -164,8 +164,6 @@ export default {
     .mainNew{
         display: flex;
 
-        font-weight: normal;
-        font-stretch: normal;
         letter-spacing: 0rem;
         padding-bottom: .22rem;
         border-bottom: .01rem dashed #b2b2b2; 
@@ -176,7 +174,7 @@ export default {
             margin-bottom: .18rem;
         }
         img{
-            margin-right: .80rem;
+            margin-right: .8rem;
             width: 5.2rem;
             height: 2.7rem;
         }
@@ -193,6 +191,9 @@ export default {
                 color: #fff;
                 background: #93aec9;
             }
+        }
+        .main_dec{
+            flex: 1;
         }
     }
     .news{

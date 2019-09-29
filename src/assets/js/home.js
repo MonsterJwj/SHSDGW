@@ -45,8 +45,6 @@ function accordion(id,option) {
             for (var y=0;y<merge.row;y++){
                 //坐标转下标   //拿到dom节点
                 var cindex = x+y*merge.col;
-                // console.log(x,y);
-                // console.log(cindex);
                 //把下标赋给相应的图片
                 var item = box.children[cindex];
                 //设置所激活的图片的 那一列和那一行的宽

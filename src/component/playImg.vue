@@ -1,7 +1,7 @@
 <template>
   <swiper :options="swiperOption" ref="mySwiper">
     <!-- slides -->
-    <swiper-slide v-for="(item,index) in imgList" :key="index"><img :src="item"></swiper-slide>
+    <swiper-slide v-for="(item,index) in bannerList" :key="index"><img :src="item.ImagePath"></swiper-slide>
     <!-- Optional controls -->
     <div class="swiper-pagination"  slot="pagination"></div>
   </swiper>
@@ -12,7 +12,7 @@
     name: 'carrousel',
     data() {
       return {
-        imgList:[],
+        bannerList:[],
         swiperOption: {
             autoplay: {
                 delay: 3000,//3秒切换一次
@@ -28,20 +28,12 @@
     mounted(){
       this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
-        FieldNames:["Content"],
+        FieldNames:["ImagePath"],
         DataJSONString: JSON.stringify({CommonInfoType:100}),
         Resource: "CommonInfo",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
       }).then((res)=>{
-        let bannerList = JSON.parse(res.data).Rows;
-        // 截取img的src路径
-        let img = bannerList[0].Content;
-        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-        let arr = img.match(imgReg);
-        for(let m=0;m<arr.length;m++){
-            let imgArr = arr[m].split("\"");
-            this.imgList.push(imgArr[1]);
-        }
+        this.bannerList = JSON.parse(res.data).Rows;
       }).catch((err)=>{
         throw err;
       });

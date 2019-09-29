@@ -125,9 +125,6 @@ article{
   .el-pagination.is-background .el-pager li:not(.disabled).active{
     background-color: #004387 !important;
   }
-  .el-pagination.is-background .el-pager li:not(.disabled):hover{
-    color: #004387 !important;
-  }
   .el-pagination button{
     width: .34rem;
     height: .32rem;

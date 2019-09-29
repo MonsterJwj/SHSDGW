@@ -22,7 +22,6 @@ export default {
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.responsibilityList = JSON.parse(res.data).Rows;
-        console.log(this.responsibilityList);
     }).catch((err)=>{
       throw err;
     });

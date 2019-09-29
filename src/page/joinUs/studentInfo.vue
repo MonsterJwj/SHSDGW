@@ -51,7 +51,7 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <span class="apply">立即申请</span>
+                        <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
                     </el-form-item>
                     </el-form>
                 </template>
@@ -100,7 +100,7 @@ export default {
             slidesPerGroup: 1,
             navigation: {
                 nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                prevEl: '.swiper-button-prev'
             },
         }
     }
@@ -187,6 +187,7 @@ export default {
             Resource: "Job",
             PageControl: { PageSize:this.pageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
+            
             this.companyAll = JSON.parse(res.data).Rows;
             for(let i=0;i<=this.companyAll.length-1;i++){
                 // 获取失效日期
@@ -203,7 +204,8 @@ export default {
                     this.recruitStatus = "已结束"
                 }
                 this.companyAll[i].PubDate = this.companyAll[i].PubDate.substring(0,10);
-            }            
+            }           
+            
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).catch((err)=>{
             throw err;
@@ -216,7 +218,7 @@ export default {
     //  获取对应招聘类型  公司的企业信息
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchID",
-        FieldNames:['Name','Content','SliderBar'],
+        // FieldNames:['Name','Content','SliderBar','URLLink','V'],
         DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "CompanyInfo"
     }).then((res)=>{
@@ -235,6 +237,7 @@ export default {
             let imgArr = arr[m].split("\"");
             this.imgList.push(imgArr[1]);
         }
+        console.log(this.companyInfo);
     }).catch((err)=>{
         throw err;
     })

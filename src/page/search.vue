@@ -6,19 +6,19 @@
      </SmallBanner>
      <div class="searchCont">
          <div class="seaInput">
-            <input type="text" placeholder="请输入您要搜索的关键字" v-model="seaValue" @keyup.enter="search">
+            <input type="text" placeholder="请输入您要搜索的关键字" v-model="seaValue" @keyup.enter="search" id="in">
             <span @click="search">搜索</span>
          </div>
          <p class="result">为您找到“<span>{{seaValue}}</span>”的相关结果 <span>{{totalPage}}</span> 条</p>
          <ul class="list">
-             <li v-for="(item,index) in searchNews" :key="index">
+             <li v-for="(item,index) in searchNews" :key="index" class="searchList">
                 <router-link :to='"/state/tradeNews/tradedetial/"+ Math.abs(item.ID)' target="_blank" v-if="item.ID <= 0">
-                    <h4>{{item.Name}}</h4>
-                    <p>{{item.Overview}}</p>
+                    <h4 v-html="lightText(item.Name)"></h4>
+                    <p v-html="lightText(item.Overview)"></p>
                 </router-link>
                 <router-link :to='"/state/companyNews/companydetial/"+item.ID' target="_blank" v-else>
-                    <h4>{{item.Name}}</h4>
-                    <p>{{item.Overview}}</p>
+                    <h4 v-html="lightText(item.Name)"></h4>
+                    <p v-html="lightText(item.Overview)"></p>
                 </router-link>
              </li>
          </ul>
@@ -43,10 +43,11 @@ export default {
  },
  methods: {
     getData(){
+        console.log(this.seaValue);
         let txt = "%"+this.seaValue+"%";
         this.$axios.post('/api/Table/TableAction',{
         Action: "SearchPage",
-        DataJSONString: JSON.stringify({Content:txt}),
+        DataJSONString: JSON.stringify({Name:txt,Content:txt}),
         Resource: "News",
         PageControl: { PageSize: 0, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
@@ -64,6 +65,13 @@ export default {
         this.page = index;
         this.getData();
     },
+    lightText(value){
+        if(value !== null){
+            let val = this.seaValue;
+            let light = value.split(val);
+            return light.join('<span style="background:yellow;">' + val + '</span>');
+        }
+    }
  },
  mounted(){
     this.getData();
@@ -144,7 +152,9 @@ export default {
         }
     }
     .list{
+        width: 100%;
         li{
+
             font-weight: normal;
             font-stretch: normal;
             letter-spacing: 0;
@@ -153,14 +163,15 @@ export default {
             a{
                 display: block;
                 color: #333333;
+                width: 100%;
             }
-            h4{
+            /deep/h4{
                 font-weight: bold;
                 font-size: .18rem;
                 line-height: .36rem;
                 margin-bottom: .14rem;
             }
-            p{
+            /deep/p{
                 font-size: .14rem;
                 line-height: .24rem;
                 

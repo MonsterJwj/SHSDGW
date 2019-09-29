@@ -23,7 +23,7 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <span class="apply">立即申请</span>
+                        <a :href="companyInfo[0].URLLink" class="apply">立即申请</a>
                     </el-form-item>
                     </el-form>
                 </template>
