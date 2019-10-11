@@ -76,7 +76,7 @@ export default {
     vertical-align: top;
     display: inline-block;
     background: #f5f5f5;
-    font-size: .12rem;
+    font-size: 12px;
     width: .4rem;
     height: .32rem;
     line-height: .32rem;

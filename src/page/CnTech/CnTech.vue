@@ -19,7 +19,6 @@
 
 <script>
 import SmallBanner from '../../component/smallBanner'
-import Tab from '../../component/tab'
 export default {
  data() {
     return {
@@ -43,8 +42,7 @@ export default {
     }
  },
  components: {
-    SmallBanner,
-    Tab
+    SmallBanner
  },
  mounted(){
     this.$axios.post('/api/Table/TableAction',{

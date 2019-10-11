@@ -5,9 +5,6 @@
         <img :src="imgUrl" slot="banner">
      </SmallBanner>
      <div class="detialNews">
-        <div class="return">
-            <router-link to="/state/companyNews"><span></span>返回</router-link>
-        </div>
         <div class="newCont">
             <div class="detailDec">
                 <h5>{{detialList.Name}}</h5>
@@ -52,7 +49,6 @@ export default {
             // 根据id获取对应的内容
             if(this.$route.params.id == this.detialList[i].ID){
                 this.detialList = this.detialList[i];
-                console.log(this.detialList);
             }
         }
     }).catch((err)=>{
@@ -68,26 +64,11 @@ export default {
 <style scoped lang="less">
 .detialNews{
     padding: .20rem;
-    font-size: .14rem;
+    font-size: 14px;
     font-weight: normal;
     letter-spacing: 0rem;
-    .return{
-        text-align: right;
-        a{
-            cursor: pointer;
-            color: #004387;
-            span{
-                display: inline-block;
-                width: .05rem;
-                height: .11rem;
-                background: url("../../assets/img/return.png") no-repeat center center;
-                background-size: .05rem .08rem;
-                margin-right: .03rem;
-            }        
-        }
-    }
     .detailDec{
-        font-size: .14rem;
+        font-size: 14px;
         color: #333333;
         line-height: .36rem;
 
@@ -95,7 +76,7 @@ export default {
         flex-direction: column;
         align-items: center;
         h5{
-            font-size: .24rem;
+            font-size: 24px;
             font-stretch: normal;
             line-height: .36rem;
         }
@@ -103,7 +84,7 @@ export default {
             margin: .19rem 0 .32rem 0;
             display: flex;
             flex-direction: column;
-            font-size: .14rem;
+            font-size: 14px;
             /deep/img{
                 width: 6rem;
                 height: 4.01rem;

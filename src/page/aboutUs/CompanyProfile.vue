@@ -82,7 +82,7 @@ export default {
     box-sizing: border-box;
     /deep/p{
         margin: .20rem 0;
-        font-size: .14rem;
+        font-size: 14px;
         font-weight: normal;
         line-height: .26rem;
         letter-spacing: 0;

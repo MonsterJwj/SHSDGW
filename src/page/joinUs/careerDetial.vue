@@ -2,9 +2,6 @@
  <div class="career">
     <div class="title">
         <h4>{{careerData.Name}}</h4>
-        <div class="return">
-            <router-link to="/joinUs/columnintroduced">返回</router-link>
-        </div>
     </div>
     <div class="txtDes" v-html="careerData.Content"></div>
  </div>
@@ -46,7 +43,7 @@ export default {
         align-items: center;
         margin-top: .2rem;
         h4{
-            font-size: .24rem;
+            font-size: 24px;
             font-weight: normal;
             line-height: .36rem;
             letter-spacing: 0rem;
@@ -70,7 +67,7 @@ export default {
     .txtDes{
         margin-top: .2rem;
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .26rem;

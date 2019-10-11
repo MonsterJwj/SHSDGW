@@ -11,13 +11,11 @@ export default {
         researchList:[]
     }
  },
- methods: {
-
- },
  mounted(){
     //  研发体系
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({ TechInnovationType: 1 }),
         Resource: "TechInnovation",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -26,9 +24,6 @@ export default {
     }).catch((err)=>{
         throw err;
     });
- },
- components: {
-
  }
 }
 </script>

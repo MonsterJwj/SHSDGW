@@ -66,7 +66,7 @@ export default {
                 font-weight: normal;
                 background: #f1f1f1;
                 border: none;
-                font-size: .14rem;
+                font-size: 14px;
             }
             span{
                 display: inline-block;

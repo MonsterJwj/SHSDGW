@@ -23,7 +23,7 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <a :href="companyInfo[0].URLLink" class="apply">立即申请</a>
+                        <a :href="props.row.href" target="_blank" class="apply">立即申请</a>
                     </el-form-item>
                     </el-form>
                 </template>
@@ -51,7 +51,8 @@ export default {
         shouldFn:0,
         recruitStatus:"",
         imgUrl:"",
-        inputVal:""
+        inputVal:"",
+        companyInfo:[]
     }
  },
  methods: {
@@ -65,10 +66,10 @@ export default {
             Resource: "Job",
             PageControl: { PageSize:this.pageSize, PageIndex:this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
-            this.schoolData = JSON.parse(res.data).Rows;
-            for(let i=0;i<=this.schoolData.length-1;i++){
+            this.societyData = JSON.parse(res.data).Rows;
+            for(let i=0;i<=this.societyData.length-1;i++){
                 // 获取失效日期
-                let staleDated = this.schoolData[i].ExpiredDate;
+                let staleDated = this.societyData[i].ExpiredDate;
                 let resdate = staleDated.replace(/-/g,"/");
                 // 失效日期时间戳
                 let timestamp = new Date(resdate).getTime();
@@ -81,9 +82,19 @@ export default {
                     this.recruitStatus = "已结束"
                 }
             
-                this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
+                this.societyData[i].PubDate = this.societyData[i].PubDate.substring(0,10);
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
+
+            // 为对应公司的立即申请添加url
+            for(let m=0;m<=this.societyData.length-1;m++){
+                for(let n=0;n<=this.companyInfo.length-1;n++){
+                    if(this.societyData[m].CompanyInfoID == this.companyInfo[n].ID){
+                        this.societyData[m].href = this.companyInfo[n].URLLink;
+                        continue;
+                    }
+                }
+            }      
         }).catch((err)=>{
             throw err;
         });
@@ -126,6 +137,16 @@ export default {
                 this.societyData[i].PubDate = this.societyData[i].PubDate.substring(0,10);
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
+
+            // 为对应公司的立即申请添加url
+            for(let m=0;m<=this.societyData.length-1;m++){
+                for(let n=0;n<=this.companyInfo.length-1;n++){
+                    if(this.societyData[m].CompanyInfoID == this.companyInfo[n].ID){
+                        this.societyData[m].href = this.companyInfo[n].URLLink;
+                        continue;
+                    }
+                }
+            }      
         }).catch((err)=>{
             throw err;
         });
@@ -145,6 +166,19 @@ export default {
     }).catch((err)=>{
         throw err;
     });
+
+    // 获取相关招聘类型的公司的外部链接
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchByJobType",
+        FieldNames:['URLLink','ID'],
+        DataJSONString: JSON.stringify({ID:2}),
+        Resource: "CompanyInfo"
+    }).then((res)=>{
+        this.companyInfo = JSON.parse(res.data);
+    }).catch((err)=>{
+        throw err;
+    })
+
     // 获取招聘信息
     this.getdata();
  },
@@ -165,11 +199,11 @@ export default {
     background: #f49d00;
     color: #fff;
     border-radius: .05rem;
-    font-size: .16rem;
+    font-size: 16px;
     margin-top: .28rem;
 }
 .table .duty>p{
-    font-size: .14rem;
+    font-size: 14px;
     color: #333;
     line-height: .24rem;
 }

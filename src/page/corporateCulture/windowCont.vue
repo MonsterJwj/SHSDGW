@@ -18,6 +18,7 @@ export default {
      // 视窗
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FiledNames:['Name'],
         DataJSONString: JSON.stringify({ CultureType: 3 }),
         Resource: "Culture",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -65,14 +66,14 @@ export default {
 
 <style scoped lang="less">
 .window{
-    letter-spacing: 0rem;
+    letter-spacing: 0;
     color: #004387;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     h5{
-        font-size: .24rem;
+        font-size: 24px;
         font-weight: normal;
         margin: .50rem 0 .30rem 0;
         text-align: center;

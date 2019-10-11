@@ -33,6 +33,7 @@ export default {
     }).catch((err)=>{
       throw err;
     });
+
  }
 }
 </script>
@@ -62,17 +63,17 @@ export default {
                 letter-spacing: 0rem;
                 color: #333333;
                 h6{
-                    font-size: .18rem;
+                    font-size: 18px;
                     line-height: .36rem;
                     font-weight: bold;
                 }
                 .time{
-                    font-size: .12rem;
+                    font-size: 12px;
                     line-height: .36rem;
                     color: #666666;
                 }
                 p{
-                    font-size: .14rem;
+                    font-size: 14px;
                     line-height: .24rem;
                 }
             }

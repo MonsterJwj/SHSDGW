@@ -65,8 +65,7 @@ export default {
         li{
             flex: 1;
             border: solid .01rem #004387;
-            font-size: .16rem;
-            color: #666;
+            font-size: 16px;
             cursor: pointer;
             &:nth-child(2){
                 border-right: none;
@@ -77,6 +76,7 @@ export default {
                 height: .40rem;
                 line-height: .40rem;
                 text-align: center;
+                color: #666;
             }
             .router-link-active{
                 background: #004387;
@@ -85,5 +85,4 @@ export default {
         }
     }
 }
-
 </style>

@@ -39,7 +39,7 @@ export default {
     border-top: .01rem solid #ccc;
     /deep/p{
         height: .22rem;
-        font-size: .14rem;
+        font-size: 14px;
     }
 }
 </style>

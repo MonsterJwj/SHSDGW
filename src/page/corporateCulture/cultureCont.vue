@@ -23,9 +23,6 @@ export default {
     }).catch((err)=>{
       throw err;
     });
- },
- components: {
-
  }
 }
 </script>
@@ -40,7 +37,7 @@ export default {
     }
     /deep/h6,p{
         line-height: .26rem;
-        font-size: .14rem;
+        font-size: 14px;
     }
     .text{
         width: 7.19rem;

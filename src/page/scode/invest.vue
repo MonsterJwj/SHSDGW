@@ -89,12 +89,12 @@ export default {
             margin-top: .26rem;
             font-weight: bold;
             color: #004387;
-            font-size: .14rem;
+            font-size: 14px;
             font-stretch: normal;
             line-height: .26rem;
         }
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .26rem;

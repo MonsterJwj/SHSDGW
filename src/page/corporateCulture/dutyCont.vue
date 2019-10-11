@@ -25,16 +25,13 @@ export default {
     }).catch((err)=>{
       throw err;
     });
- },
- components: {
-
  }
 }
 </script>
 
 <style scoped lang="less">
 .duty{
-    font-size: .14rem;
+    font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
     line-height: .26rem;

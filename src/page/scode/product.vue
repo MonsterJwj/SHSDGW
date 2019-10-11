@@ -69,6 +69,7 @@ export default {
     //  装备制造
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({ ProductType: 1 }),
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ECDate DESC"}
@@ -80,6 +81,7 @@ export default {
     // 构件
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({ ProductType: 2 }),
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -91,6 +93,7 @@ export default {
     // 防水材料
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({ ProductType: 3 }),
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -123,7 +126,7 @@ export default {
         height: .30rem;
         text-align: center;
         line-height: .30rem;
-        font-size: .16rem;
+        font-size: 16px;
         color: #fff;
         background: #004387;
         font-weight: bold;
@@ -134,10 +137,10 @@ export default {
             margin-top: .17rem;
             font-weight: bold;
             color: #004387;
-            font-size: .14rem;
+            font-size: 14px;
         }
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .26rem;

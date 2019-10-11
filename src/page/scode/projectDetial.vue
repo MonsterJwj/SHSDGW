@@ -95,7 +95,7 @@ export default {
     }
     .txt{
         h4{
-            font-size: .18rem;
+            font-size: 18px;
             font-weight: bold;
             font-stretch: normal;
             line-height: .36rem;
@@ -104,7 +104,7 @@ export default {
             margin-bottom: .13rem;
         }
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .24rem;
@@ -128,7 +128,7 @@ export default {
     }
     .introduce{
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .24rem;
@@ -136,7 +136,7 @@ export default {
             color: #333333;
         }
         /deep/li{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .24rem;

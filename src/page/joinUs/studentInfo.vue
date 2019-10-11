@@ -3,9 +3,8 @@
      <div class="picCover" v-show="coverShow">
         <div class="bigPic">
             <div class="bigBox">
-                <!-- <div id="playerVideo" v-show="imgIndex == 1"></div> -->
-                <!-- <img :src="swiperSlides[imgIndex].src" v-if="imgIndex != 1"> -->
-                <img :src="imgList[imgIndex]">
+                <div id="playerVideo" v-if="imgIndex == 1 && this.showVideo == true"></div>
+                <img :src="imgList[imgIndex]"  v-else>
                 <span @click="coverClose">X</span>
             </div>
         </div>
@@ -94,6 +93,8 @@ export default {
         intrAll:[],
         // 当搜索职位，使用分页器时，判断渲染哪个函数
         shouldFn:0,
+        // 是否初始化视频
+        showVideo:false,
         // swiper配置
         swiperOption: {
             slidesPerView: 4,
@@ -110,20 +111,19 @@ export default {
         this.coverShow = true;
         this.imgIndex = index;
 
-        // if(this.imgIndex == 1){
-        //     var player = new Aliplayer({
-        //         id: "playerVideo",
-        //         source: "https://vod.tunnelling.cn/0647187eb41e4f7780440f3e402a5ff4/136413ec898f4da084219460a17c77ad-497a4a630fbd5ca81882b99960442084-ld.m3u8",
-        //         width: "6rem",
-        //         height: "4rem",
-        //         cover: 'http://47.100.163.199:8012/RichEditUpload/image/20190910/cbc9ea8d66f9401dbe27c88b864a9c81.jpg',
-        //         /* To set an album art, you must set 'autoplay' and 'preload' to 'false' */
-        //         autoplay: true,
-        //         preload: false,
-        //     }, function(player) {
-        //         console.log("The player is created");
-        //     });
-        // }
+        if(this.imgIndex == 1 && this.showVideo == true){
+            var player = new Aliplayer({
+                id: "playerVideo",
+                source: companyInfo[0].VideoPath,
+                width: "6rem",
+                height: "4rem",
+                /* To set an album art, you must set 'autoplay' and 'preload' to 'false' */
+                autoplay: true,
+                preload: false,
+            }, function(player) {
+                console.log("The player is created");
+            });
+        }
     },
     coverClose(){
         this.coverShow = false;
@@ -218,7 +218,6 @@ export default {
     //  获取对应招聘类型  公司的企业信息
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchID",
-        // FieldNames:['Name','Content','SliderBar','URLLink','V'],
         DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "CompanyInfo"
     }).then((res)=>{
@@ -237,7 +236,12 @@ export default {
             let imgArr = arr[m].split("\"");
             this.imgList.push(imgArr[1]);
         }
-        console.log(this.companyInfo);
+
+        // 判断视频路径是否为空
+        if(this.companyInfo[0].VideoPath != null){
+            this.showVideo = true;
+        }
+
     }).catch((err)=>{
         throw err;
     })
@@ -276,6 +280,11 @@ export default {
             height: 4rem;
             border: .06rem solid #fff;
         }
+        // video{
+        //     width: 6rem;
+        //     height: 4rem;
+        //     border: .06rem solid #fff;
+        // }
         span{
             display: block;
             background: #fff;
@@ -329,13 +338,14 @@ export default {
             padding-bottom: .2rem;
             border-bottom: .01rem dashed #d2d2d2;
             h4{
-                font-size: .24rem;
+                font-size: 24px;
                 line-height: .36rem;
                 letter-spacing: 0;
                 color: #004387;
-                margin-bottom: .28rem;            }
+                margin-bottom: .28rem;
+            }
             /deep/p{
-                font-size: .14rem;
+                font-size: 14px;
                 line-height: .26rem;
                 letter-spacing: 0;
                 color: #333333;
@@ -345,7 +355,7 @@ export default {
             .packUp,.lookMore{
                 padding-right: .14rem;
                 text-align: right;
-                font-size: .14rem;
+                font-size: 14px;
                 line-height: .26rem;
                 color: #004387;
                 background: url("../../assets/img/join_blueArrows.png") no-repeat right center;
@@ -361,7 +371,7 @@ export default {
 .school_tit{
     display: flex;
     h4{
-        font-size: .24rem;
+        font-size: 24px;
         font-weight: normal;
         line-height: .36rem;
         letter-spacing: 0rem;
@@ -398,12 +408,12 @@ export default {
     background: #f49d00;
     color: #fff;
     border-radius: .05rem;
-    font-size: .14rem;
+    font-size: 14px;
     margin-top: .28rem;
 }
 .table .duty{
     /deep/p{
-        font-size: .14rem;
+        font-size: 14px;
         color: #333;
         line-height: .24rem;
         }

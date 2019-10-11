@@ -213,14 +213,11 @@
             PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
-            console.log(JSON.parse(res.data));
           }).catch((err)=>{
               throw err;
           });
           this.joinTitle = "应届学生招聘单位";
           this.joinAllShow = 2;
-         
-          console.log(this.joinNav);
         }else if(this.$route.path == "/joinUs/socialTalents" || this.$route.path == "/joinUs/socialinfo/"+this.$route.params.id){
           // 获取社会招聘类型的全部企业信息
           this.$axios.post('/api/Table/TableAction',{
@@ -231,7 +228,6 @@
             PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
-            console.log(res.data);
           }).catch((err)=>{
               throw err;
           });
@@ -247,7 +243,6 @@
             PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
-            console.log(res.data);
           }).catch((err)=>{
               throw err;
           });
@@ -304,7 +299,7 @@
         width: 1.50rem;
         cursor: pointer;
         color: #666;
-        font-size: .14rem;
+        font-size: 14px;
         line-height: .36rem;
         text-align: center;
         span{
@@ -322,7 +317,7 @@
         }
         a{
           color: #666;
-          font-size: .14rem;
+          font-size: 14px;
           line-height: .36rem;
           text-align: center;
           display: block;
@@ -377,7 +372,7 @@
     font-stretch: normal;
     letter-spacing: 0;
     p{
-      font-size: .16rem;
+      font-size: 16px;
       color: #333333;
       text-indent: .15rem;
       padding: .1rem 0;
@@ -389,7 +384,7 @@
       margin-top: .08rem;
     }
     li{
-      font-size: .14rem;
+      font-size: 14px;
       line-height: .20rem;
       a{
         display: block;

@@ -1,7 +1,7 @@
 <template>
  <div class="sma_banner">
      <div class="topNav">
-         <slot></slot>
+        <slot></slot>
      </div>
      <slot name="banner"></slot>
      <div class="titleSel">
@@ -55,7 +55,7 @@ export default {
         display: flex;
         align-items: center;
         h4{
-            font-size: .24rem;
+            font-size: 24px;
             font-weight: normal;
             height: .36rem;
             line-height: .36rem;
@@ -102,7 +102,7 @@ export default {
             margin-right: .2rem;
             a{
                 display: block;
-                font-size: .13rem;
+                font-size: 13px;
                 cursor: pointer;
                 color: #004387;
                 background: url("../assets/img/return.png") no-repeat left center;

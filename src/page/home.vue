@@ -33,6 +33,7 @@ export default {
  mounted(){
    this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
+        FieldNames:['URLLink','ImagePath'],
         DataJSONString: JSON.stringify({CommonInfoType:102}),
         Resource: "CommonInfo",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}

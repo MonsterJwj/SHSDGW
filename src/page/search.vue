@@ -2,7 +2,7 @@
  <div class="search">
      <SmallBanner>
          <span>站内搜索</span><span class="arrows"></span>
-         <img src="../assets/img/banner.jpg" slot="banner">
+         <img :src="imgUrl" slot="banner">
      </SmallBanner>
      <div class="searchCont">
          <div class="seaInput">
@@ -38,12 +38,12 @@ export default {
         totalPage:0,
         page:1,
         pagesize:4,
-        allList:[]
+        allList:[],
+        imgUrl:""
     }
  },
  methods: {
     getData(){
-        console.log(this.seaValue);
         let txt = "%"+this.seaValue+"%";
         this.$axios.post('/api/Table/TableAction',{
         Action: "SearchPage",
@@ -74,6 +74,19 @@ export default {
     }
  },
  mounted(){
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['ImagePath'],
+        DataJSONString: JSON.stringify({CommonInfoType:21}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let img = JSON.parse(res.data).Rows[0];
+        this.imgUrl = img.ImagePath;
+    }).catch((err)=>{
+        throw err;
+    });
+
     this.getData();
  },
  components: {
@@ -104,7 +117,7 @@ export default {
             background: #fff;
             border-radius: .05rem;
             text-indent: .17rem;
-            font-size: .16rem;
+            font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .3rem;
@@ -132,7 +145,7 @@ export default {
             height: .44rem;
             line-height: .44rem;
             text-align: center;
-            font-size: .16rem;
+            font-size: 16px;
             color: #fff;
             border-radius: .05rem;
             background-color: #004387;
@@ -140,7 +153,7 @@ export default {
         }
     }
     .result{
-        font-size: .18rem;
+        font-size: 18px;
         font-weight: normal;
         font-stretch: normal;
         line-height: .30rem;
@@ -167,12 +180,12 @@ export default {
             }
             /deep/h4{
                 font-weight: bold;
-                font-size: .18rem;
+                font-size: 18px;
                 line-height: .36rem;
                 margin-bottom: .14rem;
             }
             /deep/p{
-                font-size: .14rem;
+                font-size: 14px;
                 line-height: .24rem;
                 
             }

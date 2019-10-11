@@ -36,6 +36,7 @@ mounted(){
     });
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({}),
         Resource: "HonorAndQualification",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -53,7 +54,7 @@ mounted(){
 
 <style scoped lang="less">
 .hon_content{
-    font-size: .14rem;
+    font-size: 14px;
     padding: 0 .20rem .20rem .20rem;
     /deep/p{
         font-weight: normal;

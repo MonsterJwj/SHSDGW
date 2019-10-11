@@ -1,8 +1,5 @@
 <template>
     <div class="Detail">
-        <div class="return">
-            <router-link to="/cntech/aptitude"><span></span>返回</router-link>
-        </div>
         <div class="detailDec">
             <h5>{{detialList.Name}}</h5>
             <p>{{detialList.NewsDate}}</p>
@@ -44,26 +41,11 @@ export default {
 <style scoped lang="less">
 .Detail{
     padding: .20rem;
-    font-size: .14rem;
+    font-size: 14px;
     font-weight: normal;
     letter-spacing: 0rem;
-    .return{
-        text-align: right;
-        a{
-            cursor: pointer;
-            color: #004387;
-            span{
-                display: inline-block;
-                width: .05rem;
-                height: .11rem;
-                background: url("../../assets/img/return.png") no-repeat center center;
-                background-size: .05rem .08rem;
-                margin-right: .03rem;
-            }        
-        }
-    }
     .detailDec{
-        font-size: .14rem;
+        font-size: 14px;
         color: #333333;
         line-height: .36rem;
 
@@ -71,14 +53,14 @@ export default {
         flex-direction: column;
         align-items: center;
         h5{
-            font-size: .24rem;
+            font-size: 24px;
             font-stretch: normal;
             line-height: .36rem;
         }
         .textDec{
             width: 80%;
             /deep/p{
-                font-size: .14rem;
+                font-size: 14px;
                 color: #333333;
                 line-height: .26rem;
                 margin-bottom: .26rem;

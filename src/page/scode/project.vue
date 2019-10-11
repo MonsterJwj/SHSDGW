@@ -4,9 +4,6 @@
         <span>业务范围</span><span class="arrows"></span><span>工程建设</span><span class="arrows"></span>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title" class="sbanner">工程建设</h4>
-        <div class="return" slot="rightCont" v-show="!projectShow">
-            <router-link to="/scode/project"><span></span>返回</router-link>
-        </div>
         <!-- <select slot="rightCont" name="projectYear">
             <option value="">年份选择</option>
             <option value="2019">2019年</option>
@@ -149,7 +146,7 @@ export default {
                     }
                 }
                 p{
-                    font-size: .11rem;
+                    font-size: 11px;
                     -webkit-transform-origin-x: 0;
                     color: #b1b1b1;
                     margin-bottom: .15rem;

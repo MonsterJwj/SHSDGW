@@ -146,19 +146,19 @@ export default {
 .cont{
     padding: .20rem;
     h4{
-        font-size: .18rem;
+        font-size: 18px;
         line-height: .36rem;
         font-weight: bold;
         margin-top: .12rem;
         color: #333333;
     }
     .time{
-        font-size: .12rem;
+        font-size: 12px;
         color: #666666;
     }
     p{
         line-height: .24rem;
-        font-size: .14rem;
+        font-size: 14px;
         color: #333;
     }
     .mainNew{
@@ -203,6 +203,9 @@ export default {
 
         padding: .12rem 0;
         border-bottom: .01rem dashed #b2b2b2;
+        .news_dec{
+            flex: 1;
+        }
     }
 }
 </style>

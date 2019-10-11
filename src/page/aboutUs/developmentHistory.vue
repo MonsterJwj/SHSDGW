@@ -33,6 +33,7 @@ export default {
     });
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({}),
         Resource: "DevelopmentHistory",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
@@ -56,7 +57,7 @@ export default {
         }
     }
     .his_content{
-        font-size: .14rem;
+        font-size: 14px;
         padding: 0 .20rem .20rem .20rem;
         /deep/p{
             font-weight: bold;
@@ -64,23 +65,15 @@ export default {
             letter-spacing: 0rem;
             color: #004387;
             margin: .34rem 0;
-            
-            // text-align: justify;
-            // text-justify: newspaper;
-            // word-break: break-all;
         }
         /deep/ul{
-            font-size: .14rem;
+            font-size: 14px;
             padding-left: .2rem;
             li{
                 font-weight: normal;
                 letter-spacing: 0rem;
                 color: #333333;
                 line-height: .24rem;
-                // text-indent: .1rem;
-                // list-style: disc;
-                
-                // list-style-type: square;
                 &:before {
                     content: "";
                     display: inline-block;

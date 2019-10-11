@@ -2,9 +2,6 @@
  <div class="talentDetial">
     <div class="title">
         <h4>{{talentData.Name}}</h4>
-        <div class="return">
-            <router-link to="/joinUs/columnintroduced">返回</router-link>
-        </div>
     </div>
     <div class="txtDes" v-html="talentData.Content"></div>
  </div>
@@ -29,9 +26,6 @@ export default {
     }).catch((err)=>{
         throw err;
     });
- },
- components: {
-
  }
 }
 </script>
@@ -43,31 +37,18 @@ export default {
         align-items: center;
         margin-top: .2rem;
         h4{
-            font-size: .24rem;
+            font-size: 24px;
             font-weight: normal;
             line-height: .36rem;
             letter-spacing: 0rem;
             color: #004387;
             flex: 1;
         }
-        .return{
-            text-align: right;
-            margin-right: .2rem;
-            a{
-                display: block;
-                font-size: .13rem;
-                cursor: pointer;
-                color: #004387;
-                background: url("../../assets/img/return.png") no-repeat left center;
-                background-size: .05rem .08rem;
-                text-indent: .08rem; 
-            }
-        }
     }
     .txtDes{
         margin-top: .2rem;
         /deep/p{
-            font-size: .14rem;
+            font-size: 14px;
             font-weight: normal;
             font-stretch: normal;
             line-height: .26rem;

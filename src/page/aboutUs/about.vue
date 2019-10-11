@@ -3,18 +3,11 @@
 </template>
 
 <script>
-import Foot from '../../component/foot'
   export default {
     data() {
       return {
 
       }
-    },
-    methods: {
-
-    },
-    components: {
-        Foot
     }
   }
 

@@ -35,6 +35,7 @@ export default {
     });
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
+        FieldNames:['Content'],
         DataJSONString: JSON.stringify({}),
         Resource: "CorporateSturcture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
