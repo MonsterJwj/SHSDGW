@@ -10,7 +10,7 @@
                 <img :src="tradeList.ImagePath">
                 <div class="main_dec">
                 <h4>{{tradeList.Name}}</h4>
-                <p class="time">{{tradeList.NewsDate}}</p>
+                <p class="time">{{tradeList.PubDate | FormatTime}}</p>
                 <p>{{tradeList.Overview}}</p>
                 <div class="lookDet"><router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' target="_blank">查看详情</router-link></div>
                 </div>
@@ -19,7 +19,7 @@
                 <router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' class="news" target="_blank">
                     <div class="news_dec">
                         <h4>{{tradeList.Name}}</h4>
-                        <p class="time">{{tradeList.NewsDate}}</p>
+                        <p class="time">{{tradeList.PubDate | FormatTime}}</p>
                         <p>{{tradeList.Overview}}</p>
                     </div>
                     <img src="../../assets/img/xiangxi.jpg">
@@ -29,7 +29,7 @@
                 <router-link :to='"/state/tradeNews/tradedetial/"+item.ID' class="news" v-for="(item,index) in somelist" :key="index" target="_blank">
                     <div class="news_dec">
                         <h4>{{item.Name}}</h4>
-                        <p class="time">{{item.NewsDate}}</p>
+                        <p class="time">{{item.PubDate | FormatTime}}</p>
                         <p>{{item.Overview}}</p>
                     </div>
                     <img src="../../assets/img/xiangxi.jpg">
@@ -80,6 +80,15 @@ export default {
         }).then((res)=>{
             let list = JSON.parse(res.data).Rows;
 
+            for(let m=0;m<list.length;m++){
+                if(list[m].Overview == null){
+                    let cont = list[m].Content;
+                    var dd = cont.replace(/<\/?.+?>/g,"");
+                    var dds = dd.replace(/ /g,"");//dds为得到后的内容
+                    list[m].Overview = dds.substring(0,99); 
+                }
+            }
+
             this.AllList = list.slice(1);
             this.totalPage = this.AllList.length;
             this.somelist = this.AllList.slice((this.page-1)*this.PageSize,this.page*this.PageSize);
@@ -109,6 +118,16 @@ export default {
         PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         let list = JSON.parse(res.data).Rows;
+         // 判断后台的概述是否为空
+        for(let m=0;m<list.length;m++){
+            if(list[m].Overview == null){
+                let cont = list[m].Content;
+                var dd = cont.replace(/<\/?.+?>/g,"");
+                var dds = dd.replace(/ /g,"");//dds为得到后的内容
+                list[m].Overview = dds.substring(0,99);
+            }
+        }
+
         this.tradeList = list[0];
         // 截取img的src路径
         let img = this.tradeList.Content;
@@ -138,6 +157,14 @@ export default {
      $route(){
         this.listenRoute();
      }
+ },
+ filters:{
+    FormatTime(val){
+        if(val != null){
+            val = val.substring(0,10);
+        }
+        return val;
+    }
  }
 }
 </script>

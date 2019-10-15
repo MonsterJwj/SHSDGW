@@ -24,7 +24,9 @@
     <div class="mainCont">
         <div class="companyIntr" v-for="(item,index) in companyInfo" :key="index">
             <h4>{{item.Name}}</h4>
-            <div class="info" v-html="intrData"></div>
+            <div class="info">
+                <p v-for="(item,index) in intrData" :key="index" v-html="item"></p>
+            </div>
             <div class="lookMore"><span @click="lookMore">查看更多</span></div>
             <div class="packUp"><span @click="packUp">收起</span></div>
         </div>
@@ -88,7 +90,7 @@ export default {
         // input值
         inputVal:"",
         // 企业介绍
-        intrData:"",
+        intrData:[],
         // 企业介绍全部信息
         intrAll:[],
         // 当搜索职位，使用分页器时，判断渲染哪个函数
@@ -161,12 +163,12 @@ export default {
         });
     },
     lookMore(){
-        this.intrData = this.intrAll.join("");
+        this.intrData = this.intrAll;
         document.getElementsByClassName("lookMore")[0].style.display = "none";
         document.getElementsByClassName("packUp")[0].style.display = "block";
     },
     packUp(){
-        this.intrData = this.intrAll.slice(0,2).join("");
+        this.intrData = this.intrAll.slice(0,2);
         document.getElementsByClassName("lookMore")[0].style.display = "block";
         document.getElementsByClassName("packUp")[0].style.display = "none";
     },
@@ -210,41 +212,52 @@ export default {
         }).catch((err)=>{
             throw err;
         });
+    },
+    mounteData(){
+        //  获取对应招聘类型  公司的企业信息
+        this.$axios.post('/api/Table/TableAction',{
+            Action: "SearchID",
+            DataJSONString: JSON.stringify({ID:this.$route.params.id}),
+            Resource: "CompanyInfo"
+        }).then((res)=>{
+            this.companyInfo = JSON.parse(res.data);
+            this.companyName = this.companyInfo[0].Name;
+            
+            // 截取内容里的前两段
+            let cont = this.companyInfo[0].Content.split("</p>")
+            if(cont.length <= 2){
+                this.$nextTick(()=>{
+                    document.getElementsByClassName('lookMore')[0].style.block = 'none';
+                })
+            }
+            for(let t=0;t<cont.length;t++){
+                this.intrAll.push(cont[t].split("<p>")[1]);
+            }
+            this.intrData = this.intrAll.slice(0,2);
+
+            // 截取img的src路径
+            let img = this.companyInfo[0].SliderBar;
+            let imgReg = /<img\b.*?(?:\>|\/>)/gi;
+            let arr = img.match(imgReg);
+            for(let m=0;m<arr.length;m++){
+                let imgArr = arr[m].split("\"");
+                this.imgList.push(imgArr[1]);
+            }
+
+            // 判断视频路径是否为空
+            if(this.companyInfo[0].VideoPath != null){
+                this.showVideo = true;
+            }
+
+        }).catch((err)=>{
+            throw err;
+        })
     }
  },
  mounted(){
     //  获取对应招聘类型  公司的企业校园招聘职位信息
     this.getdata();
-    //  获取对应招聘类型  公司的企业信息
-    this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchID",
-        DataJSONString: JSON.stringify({ID:this.$route.params.id}),
-        Resource: "CompanyInfo"
-    }).then((res)=>{
-        this.companyInfo = JSON.parse(res.data);
-        this.companyName = this.companyInfo[0].Name;
-
-        // 截取内容里的前两段
-        this.intrAll = this.companyInfo[0].Content.split("<br />");
-        this.intrData = this.intrAll.slice(0,2).join("");
-       
-        // 截取img的src路径
-        let img = this.companyInfo[0].SliderBar;
-        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-        let arr = img.match(imgReg);
-        for(let m=0;m<arr.length;m++){
-            let imgArr = arr[m].split("\"");
-            this.imgList.push(imgArr[1]);
-        }
-
-        // 判断视频路径是否为空
-        if(this.companyInfo[0].VideoPath != null){
-            this.showVideo = true;
-        }
-
-    }).catch((err)=>{
-        throw err;
-    })
+    this.mounteData();
  },
  components: {
     Pagination
@@ -256,12 +269,12 @@ export default {
 .recruitAll{
     // 遮盖层相关内容样式
     .picCover{
-        position: fixed;
+        position: absolute;
         top: 0;
         left: -2.37rem; 
 
         width: 19.2rem;
-        height: 970px;
+        height: 100%;
         background: rgba(0,0,0, .7);
         z-index: 99;
         
@@ -364,6 +377,8 @@ export default {
             }
             .packUp{
                 display: none;
+                background: url("../../assets/img/join_blueArrows_t.png") no-repeat right center;
+                background-size: .09rem .05rem;
             }
         }
     } 

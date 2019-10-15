@@ -92,8 +92,10 @@ export default {
 
     .mainDeti{
         display: flex;
+        width: 100%;
     }
     .txt{
+        flex:1;
         h4{
             font-size: 18px;
             font-weight: bold;

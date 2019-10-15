@@ -2,7 +2,7 @@
     <div class="Detail">
         <div class="detailDec">
             <h5>{{detialList.Name}}</h5>
-            <p>{{detialList.NewsDate}}</p>
+            <p>{{detialList.PubDate | FormatTime}}</p>
             <div class="textDec" v-html="detialList.Content"></div>
         </div>
     </div>
@@ -34,6 +34,14 @@ export default {
     }).catch((err)=>{
       throw err;
     });
+ },
+ filters:{
+    FormatTime(val){
+        if(val != null){
+            val = val.substring(0,10);
+        }
+        return val;
+    }
  }
 }
 </script>

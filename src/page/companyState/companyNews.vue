@@ -11,7 +11,7 @@
                 <img :src="NewsList.ImagePath">
                 <div class="main_dec">
                 <h4>{{NewsList.Name}}</h4>
-                <p class="time">{{NewsList.NewsDate}}</p>
+                <p class="time">{{NewsList.PubDate | FormatTime}}</p>
                 <p>{{NewsList.Overview}}</p>
                 <div class="lookDet"><router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' target="_blank">查看详情</router-link></div>
                 </div>
@@ -20,7 +20,7 @@
                 <router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' class="news" target="_blank">
                     <div class="news_dec">
                         <h4>{{NewsList.Name}}</h4>
-                        <p class="time">{{NewsList.NewsDate}}</p>
+                        <p class="time">{{NewsList.PubDate | FormatTime}}</p>
                         <p>{{NewsList.Overview}}</p>
                     </div>
                     <img src="../../assets/img/xiangxi.jpg">
@@ -31,7 +31,7 @@
                 <router-link :to='"/state/companyNews/companydetial/"+item.ID' class="news" v-for="(item,index) in somelist" :key="index" target="_blank">
                     <div class="news_dec">
                         <h4>{{item.Name}}</h4>
-                        <p class="time">{{item.NewsDate}}</p>
+                        <p class="time">{{item.PubDate | FormatTime}}</p>
                         <p>{{item.Overview}}</p>
                     </div>
                     <img src="../../assets/img/xiangxi.jpg">
@@ -83,6 +83,15 @@ export default {
             PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
             let list = JSON.parse(res.data).Rows;
+
+            for(let m=0;m<list.length;m++){
+                if(list[m].Overview == null){
+                    let cont = list[m].Content;
+                    var dd = cont.replace(/<\/?.+?>/g,"");
+                    var dds = dd.replace(/ /g,"");//dds为得到后的内容
+                    list[m].Overview = dds.substring(0,99); 
+                }
+            }
             
             this.AllList = list.slice(1);
             this.totalPage = this.AllList.length;
@@ -109,8 +118,7 @@ export default {
     }).catch((err)=>{
         throw err;
     });
-    
-    
+
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
         DataJSONString: JSON.stringify({}),
@@ -118,6 +126,16 @@ export default {
         PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         let list = JSON.parse(res.data).Rows;
+        // 判断后台的概述是否为空
+        for(let m=0;m<list.length;m++){
+            if(list[m].Overview == null){
+                let cont = list[m].Content;
+                var dd = cont.replace(/<\/?.+?>/g,"");
+                var dds = dd.replace(/ /g,"");//dds为得到后的内容
+                list[m].Overview = dds.substring(0,99);
+            }
+        }
+        
         this.NewsList = list[0];
         // 截取img的src路径
         let img = this.NewsList.Content;
@@ -131,6 +149,7 @@ export default {
         }else{
             this.styShow = false;
         }
+       
         this.AllList = list.slice(1);
         this.totalPage = this.AllList.length;
         this.somelist = this.AllList.slice((this.page-1)*this.PageSize,this.page*this.PageSize);
@@ -147,6 +166,14 @@ export default {
  watch:{
     $route(){
     this.listenRoute();
+    }
+ },
+ filters:{
+    FormatTime(val){
+        if(val != null){
+            val = val.substring(0,10);
+        }
+        return val;
     }
  }
 }
@@ -218,6 +245,11 @@ export default {
         border-bottom: .01rem dashed #b2b2b2;
         .news_dec{
             flex: 1;
+        }
+        img{
+            margin-left: .76rem;
+            width: 1rem;
+            height: 1.02rem;
         }
     }
 }

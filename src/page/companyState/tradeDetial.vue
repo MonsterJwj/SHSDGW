@@ -8,7 +8,7 @@
         <div class="newCont">
             <div class="detailDec" v-for="(item,index) in detialList.Rows" :key="index">
                 <h5>{{item.Name}}</h5>
-                <p>{{item.NewsDate}}</p>
+                <p>{{item.PubDate | FormatTime}}</p>
                 <div class="describe" v-html="item.Content"></div>
             </div>
         </div>
@@ -58,6 +58,14 @@ export default {
  },
  components: {
     SmallBanner
+ },
+ filters:{
+    FormatTime(val){
+        if(val != null){
+            val = val.substring(0,10);
+        }
+        return val;
+    }
  }
 }
 </script>
@@ -82,10 +90,10 @@ export default {
             line-height: .36rem;
         }
         .describe{
+            width: 100%;
             margin: .19rem 0 .32rem 0;
             display: flex;
             flex-direction: column;
-            font-size: 14px;
             /deep/img{
                 width: 6rem;
                 height: 4.01rem;
@@ -95,8 +103,8 @@ export default {
             }
             /deep/p{
                 line-height: .26rem;
-                margin-bottom: .26rem;
                 text-indent: .25rem;
+                font-size: 14px;
                 &:nth-child(1){
                     display: flex;
                     justify-content: center;

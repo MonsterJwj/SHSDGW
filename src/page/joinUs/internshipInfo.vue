@@ -24,7 +24,9 @@
     <div class="mainCont">
         <div class="companyIntr" v-for="(item,index) in companyInfo" :key="index">
             <h4>{{item.Name}}</h4>
-            <div class="info" v-html="intrData"></div>
+            <div class="info">
+                <p v-for="(item,index) in intrData" :key="index" v-html="item"></p>
+            </div>
             <div class="lookMore"><span @click="lookMore">查看更多</span></div>
             <div class="packUp"><span @click="packUp">收起</span></div>
         </div>
@@ -88,7 +90,7 @@ export default {
         // input值
         inputVal:"",
         // 企业介绍
-        intrData:"",
+        intrData:[],
         // 企业介绍全部信息
         intrAll:[],
         // 控制视频的显示
@@ -159,12 +161,12 @@ export default {
         });
     },
     lookMore(){
-        this.intrData = this.intrAll.join("");
+        this.intrData = this.intrAll;
         document.getElementsByClassName("lookMore")[0].style.display = "none";
         document.getElementsByClassName("packUp")[0].style.display = "block";
     },
     packUp(){
-        this.intrData = this.intrAll.slice(0,2).join("");
+        this.intrData = this.intrAll.slice(0,2);
         document.getElementsByClassName("lookMore")[0].style.display = "block";
         document.getElementsByClassName("packUp")[0].style.display = "none";
     },
@@ -216,9 +218,17 @@ export default {
         this.companyInfo = JSON.parse(res.data);
         this.companyName = this.companyInfo[0].Name;
 
-        // 截取内容里的前两段
-        this.intrAll = this.companyInfo[0].Content.split("<br />");
-        this.intrData = this.intrAll.slice(0,2).join("");
+         // 截取内容里的前两段
+        let cont = this.companyInfo[0].Content.split("</p>")
+        if(cont.length <= 2){
+            this.$nextTick(()=>{
+                document.getElementsByClassName('lookMore')[0].style.block = 'none';
+            })
+        }
+        for(let t=0;t<cont.length;t++){
+            this.intrAll.push(cont[t].split("<p>")[1]);
+        }
+        this.intrData = this.intrAll.slice(0,2);
         
         // 截取img的src路径
         let img = this.companyInfo[0].SliderBar;
@@ -243,12 +253,12 @@ export default {
 .recruitAll{
     // 遮盖层相关内容样式
     .picCover{
-        position: fixed;
+        position: absolute;
         top: 0;
         left: -2.37rem; 
 
         width: 19.2rem;
-        height: 970px;
+        height: 100%;
         background: rgba(0,0,0, .7);
         z-index: 99;
         
@@ -330,8 +340,9 @@ export default {
                 letter-spacing: 0;
                 color: #333333;
                 text-indent: .28rem;
+                margin-bottom: .27rem;
             }
-            .lookMore{
+            .packUp,.lookMore{
                 padding-right: .14rem;
                 text-align: right;
                 font-size: 14px;
@@ -340,6 +351,11 @@ export default {
                 background: url("../../assets/img/join_blueArrows.png") no-repeat right center;
                 background-size: .09rem .05rem;
                 cursor: pointer;
+            }
+            .packUp{
+                display: none;
+                background: url("../../assets/img/join_blueArrows_t.png") no-repeat right center;
+                background-size: .09rem .05rem;
             }
         }
     } 

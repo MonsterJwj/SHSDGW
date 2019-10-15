@@ -372,7 +372,7 @@
     font-stretch: normal;
     letter-spacing: 0;
     p{
-      font-size: 16px;
+      font-size: .16rem;
       color: #333333;
       text-indent: .15rem;
       padding: .1rem 0;
