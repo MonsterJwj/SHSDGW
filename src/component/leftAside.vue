@@ -152,7 +152,7 @@
     },
     methods: {
       handleClick(oneIndex, twoIndex){
-        if(!twoIndex && twoIndex != 0){   //一级
+        if(twoIndex == null){   //一级
           this.twoIndex = -1;
           this.oneIndex = oneIndex;
           //合上

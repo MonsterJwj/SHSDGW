@@ -39,18 +39,11 @@ export default {
         throw err;
     });
     this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchAllEnabled",
-        DataJSONString: JSON.stringify({}),
+        Action: "SearchID",
+        DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "News",
-        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.detialList = JSON.parse(res.data).Rows;
-        for(let i=0;i<this.detialList.length;i++){
-            // 根据id获取对应的内容
-            if(this.$route.params.id == this.detialList[i].ID){
-                this.detialList = this.detialList[i];
-            }
-        }
+        this.detialList = JSON.parse(res.data)[0];
     }).catch((err)=>{
         throw err;
     });

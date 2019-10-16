@@ -52,14 +52,17 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
+                        <div class="apply-er">
+                            <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
+                            <img :src="companyInfo[0].Memo">
+                        </div>
                     </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
         </el-table>
     </div>
-    <div class="page"><Pagination :total='totalPage' :page="page" @currentPage="currentPage"></Pagination></div>
+    <div class="page"><Pagination :total='totalPage' :pageSize='pageSize' :page="page" @currentPage="currentPage"></Pagination></div>
  </div>
 </template>
 
@@ -175,7 +178,7 @@ export default {
     currentPage(index){
         this.page = index;
         // 判断渲染职位请求的函数，还是全部职位的函数
-        if(shouldFn == 0){
+        if(this.shouldFn == 0){
             this.getdata();
         }else{
             this.search();
@@ -217,6 +220,7 @@ export default {
         //  获取对应招聘类型  公司的企业信息
         this.$axios.post('/api/Table/TableAction',{
             Action: "SearchID",
+            FieldNames:['Name','Content','SliderBar','URLLink','Memo'],
             DataJSONString: JSON.stringify({ID:this.$route.params.id}),
             Resource: "CompanyInfo"
         }).then((res)=>{
@@ -242,6 +246,16 @@ export default {
             for(let m=0;m<arr.length;m++){
                 let imgArr = arr[m].split("\"");
                 this.imgList.push(imgArr[1]);
+            }
+
+             // 截取二维码的url
+            if(this.companyInfo[0].Memo != ""){
+                let erImg = this.companyInfo[0].Memo;
+                let erArr = erImg.match(imgReg);
+                for(let t=0;t<erArr.length;t++){
+                    let erUrl = erArr[t].split("\"");
+                    this.companyInfo[0].Memo = erUrl[1];
+                }
             }
 
             // 判断视频路径是否为空
@@ -293,11 +307,11 @@ export default {
             height: 4rem;
             border: .06rem solid #fff;
         }
-        // video{
-        //     width: 6rem;
-        //     height: 4rem;
-        //     border: .06rem solid #fff;
-        // }
+        video{
+            width: 6rem;
+            height: 4rem;
+            border: .06rem solid #fff;
+        }
         span{
             display: block;
             background: #fff;
@@ -424,7 +438,6 @@ export default {
     color: #fff;
     border-radius: .05rem;
     font-size: 14px;
-    margin-top: .28rem;
 }
 .table .duty{
     /deep/p{
@@ -432,5 +445,15 @@ export default {
         color: #333;
         line-height: .24rem;
         }
+}
+.apply-er{
+    margin-top: .28rem;
+    display: flex;
+    align-items: center;
+    img{
+        width: 1rem;
+        height: 1rem;
+        margin-left: .6rem;
+    }
 }
 </style>

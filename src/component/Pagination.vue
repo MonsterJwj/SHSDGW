@@ -60,13 +60,12 @@ export default {
     clickPage(i){
         this.$emit('currentPage', i)
     },
-    prevPage(){
-        this.$emit('currentPage', i)
-    },
-    nextPage(){
-        this.$emit('currentPage', i)
-        console.log(this.page,this.pageSize,this.total);
-    }
+    // prevPage(){
+    //     this.$emit('currentPage', i)
+    // },
+    // nextPage(){
+    //     this.$emit('currentPage', i)
+    // }
   }
 }
 

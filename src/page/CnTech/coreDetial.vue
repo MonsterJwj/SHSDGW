@@ -19,18 +19,13 @@ export default {
  mounted(){
      // 科技资质与获奖祥情表
     this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchBlurEnabled",
-        DataJSONString: JSON.stringify({ TechInnovationType: 3 }),
+        Action: "SearchID",
+        FieldNames:['Name','PubDate','ID','Content'],
+        DataJSONString: JSON.stringify({ID: this.$route.params.id}),
         Resource: "TechInnovation",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.detialList = JSON.parse(res.data).Rows;
-        for(let i=0;i<this.detialList.length;i++){
-            // 根据id获取对应的内容
-            if(this.$route.params.id == this.detialList[i].ID){
-                this.detialList = this.detialList[i];
-            }
-        }
+        this.detialList = JSON.parse(res.data)[0];
     }).catch((err)=>{
       throw err;
     });

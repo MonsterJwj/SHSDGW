@@ -28,7 +28,7 @@
             </div>
             <!-- 其他新闻 -->
             <div class="small_news">
-                <router-link :to='"/state/companyNews/companydetial/"+item.ID' class="news" v-for="(item,index) in somelist" :key="index" target="_blank">
+                <router-link :to='"/state/companyNews/companydetial/"+item.ID' class="news" v-for="(item,index) in AllList" :key="index" target="_blank">
                     <div class="news_dec">
                         <h4>{{item.Name}}</h4>
                         <p class="time">{{item.PubDate | FormatTime}}</p>
@@ -38,7 +38,7 @@
                 </router-link>
             </div>
             <!-- 分页器 -->
-            <div class="page"><Pagination :total='totalPage' :page="page" @currentPage="currentPage"></Pagination></div>
+            <div class="page"><Pagination :total='totalPage' :pageSize='PageSize' :page="page" @currentPage="currentPage"></Pagination></div>
         </div>
      </div>
     <router-view v-else></router-view>
@@ -55,12 +55,10 @@ export default {
         NewsList:[],
         totalPage:0,
         page:1,
-        PageSize: 4,
+        PageSize: 5,
         showDetial:true,
         // 请求的全部数据
         AllList:[],
-        // 点击分页时每次渲染的数据
-        somelist:[],
         // img路径
         imgUrl:"",
         // 判断应该用哪个布局
@@ -80,22 +78,23 @@ export default {
             Action: "SearchAllEnabled",
             DataJSONString: JSON.stringify({}),
             Resource: "News",
-            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+            PageControl: { PageSize:this.PageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
-            let list = JSON.parse(res.data).Rows;
+            this.AllList = JSON.parse(res.data).Rows;
 
-            for(let m=0;m<list.length;m++){
-                if(list[m].Overview == null){
-                    let cont = list[m].Content;
+            for(let m=0;m< this.AllList.length;m++){
+                if( this.AllList[m].Overview == null){
+                    let cont =  this.AllList[m].Content;
                     var dd = cont.replace(/<\/?.+?>/g,"");
                     var dds = dd.replace(/ /g,"");//dds为得到后的内容
-                    list[m].Overview = dds.substring(0,99); 
+                     this.AllList[m].Overview = dds.substring(0,131); 
                 }
             }
             
-            this.AllList = list.slice(1);
-            this.totalPage = this.AllList.length;
-            this.somelist = this.AllList.slice((this.page-1)*this.PageSize,this.page*this.PageSize);
+            if(this.page == 1){
+                this.AllList = this.AllList.slice(1);
+            }
+            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).catch((err)=>{
             throw err;
         });   
@@ -123,16 +122,16 @@ export default {
         Action: "SearchAllEnabled",
         DataJSONString: JSON.stringify({}),
         Resource: "News",
-        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+        PageControl: { PageSize:this.PageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         let list = JSON.parse(res.data).Rows;
         // 判断后台的概述是否为空
         for(let m=0;m<list.length;m++){
-            if(list[m].Overview == null){
+            if(list[m].Overview == null || list[m].Overview == ""){
                 let cont = list[m].Content;
                 var dd = cont.replace(/<\/?.+?>/g,"");
                 var dds = dd.replace(/ /g,"");//dds为得到后的内容
-                list[m].Overview = dds.substring(0,99);
+                list[m].Overview = dds.substring(0,131);
             }
         }
         
@@ -140,19 +139,21 @@ export default {
         // 截取img的src路径
         let img = this.NewsList.Content;
         let regex = /<img.*?src="(.*?)"/;
-        let imgSrc = regex.exec(img)[1];
+        let imgSrc = regex.exec(img);
+        if(imgSrc != null){
+            imgSrc = imgSrc[1];
+        }
         // 判断后台列表图片字段里是否有图片，如果有就取这个。如果没有就取内容字段里的第一张图片，如果还没有那就把这条新闻的列表格式改成没图片的样子。
         if(this.NewsList.ImagePath != null){
             this.styShow = true;
-        }else if(this.NewsList.ImagePath == null && imgSrc != ""){
+        }else if(this.NewsList.ImagePath == null && imgSrc != null){
             this.NewsList.ImagePath = imgSrc;
         }else{
             this.styShow = false;
         }
-       
+        
         this.AllList = list.slice(1);
-        this.totalPage = this.AllList.length;
-        this.somelist = this.AllList.slice((this.page-1)*this.PageSize,this.page*this.PageSize);
+        this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
     }).catch((err)=>{
         throw err;
     });   

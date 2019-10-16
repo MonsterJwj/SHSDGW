@@ -6,13 +6,11 @@ import router from './router'
 
 // rem响应式
 require("./assets/js/flexible")
-
-// jQuery
-import $ from 'jquery'
+import {Const_Api_Root} from '../static/data/apiRoot'
 
 // axios
 import axios from "axios";
-axios.defaults.baseURL = "https://3wm.stec.sh.cn"
+axios.defaults.baseURL = Const_Api_Root;
 Vue.prototype.$axios=axios;
 
 // vuex状态管理
@@ -36,6 +34,7 @@ import Axios from 'axios';
 Vue.use(ElementUI)
 
 import promise from 'es6-promise';
+import { from } from '_array-flatten@2.1.2@array-flatten'
 promise.polyfill();
 
 Vue.config.productionTip = false

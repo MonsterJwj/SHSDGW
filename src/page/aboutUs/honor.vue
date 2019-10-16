@@ -42,6 +42,7 @@ mounted(){
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.honorList = JSON.parse(res.data).Rows[0];
+        // let p = this.honorList.Content.split('</p>');
     }).catch((err)=>{
       throw err;
     });

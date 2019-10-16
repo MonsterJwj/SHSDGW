@@ -23,7 +23,10 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <a :href="props.row.href" target="_blank" class="apply">立即申请</a>
+                        <div class="apply-er">
+                            <a :href="props.row.href" target="_blank" class="apply">立即申请</a>
+                            <img :src="props.row.erHref">
+                        </div>
                     </el-form-item>
                     </el-form>
                 </template>
@@ -90,6 +93,7 @@ export default {
                 for(let n=0;n<=this.companyInfo.length-1;n++){
                     if(this.schoolData[m].CompanyInfoID == this.companyInfo[n].ID){
                         this.schoolData[m].href = this.companyInfo[n].URLLink;
+                        this.schoolData[m].erHref = this.companyInfo[n].Memo;
                         continue;
                     }
                 }
@@ -139,6 +143,7 @@ export default {
                 for(let n=0;n<=this.companyInfo.length-1;n++){
                     if(this.schoolData[m].CompanyInfoID == this.companyInfo[n].ID){
                         this.schoolData[m].href = this.companyInfo[n].URLLink;
+                        this.schoolData[m].erHref = this.companyInfo[n].Memo;
                         continue;
                     }
                 }
@@ -164,11 +169,25 @@ export default {
 
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchByJobType",
-        FieldNames:['URLLink','ID'],
+        FieldNames:['URLLink','ID','Memo'],
         DataJSONString: JSON.stringify({ID:1}),
         Resource: "CompanyInfo"
     }).then((res)=>{
         this.companyInfo = JSON.parse(res.data);
+
+         // 截取二维码的url
+        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
+        for(let k=0;k<this.companyInfo.length;k++){
+            if(this.companyInfo[k].Memo != ""){
+                let erImg = this.companyInfo[k].Memo;
+                let erArr = erImg.match(imgReg);
+                for(let t=0;t<erArr.length;t++){
+                    let erUrl = erArr[t].split("\"");
+                    this.companyInfo[k].Memo = erUrl[1];
+                }
+            }
+        }
+        
     }).catch((err)=>{
         throw err;
     })
@@ -193,11 +212,20 @@ export default {
     color: #fff;
     border-radius: .05rem;
     font-size: 16px;
-    margin-top: .28rem;
 }
 .table .duty>p{
     font-size: 14px;
     color: #333;
     line-height: .24rem;
+}
+.apply-er{
+    margin-top: .28rem;
+    display: flex;
+    align-items: center;
+}
+.apply-er img{
+    width: 1rem;
+    height: 1rem;
+    margin-left: .6rem;
 }
 </style>

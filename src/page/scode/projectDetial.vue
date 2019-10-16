@@ -51,26 +51,21 @@ export default {
  },
  mounted(){
     this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchBlurEnabled",
-        DataJSONString: JSON.stringify({ECType : 1}),
+        Action: "SearchID",
+        FieldNames:['Name','Important','SliderBar','Description','ID'],
+        DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "EngineeringConstruction",
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.detialData = JSON.parse(res.data).Rows;
+        this.detialData = JSON.parse(res.data)[0];
         
-        for(let i=0;i<this.detialData.length;i++){
-            // 根据id获取对应的内容
-            if(this.$route.params.id == this.detialData[i].ID){
-                this.detialData = this.detialData[i];
-                // 截取图片路径
-                let img = this.detialData.SliderBar;
-                let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-                let arr = img.match(imgReg);
-                for(let m=0;m<arr.length;m++){
-                    let imgArr = arr[m].split("\"");
-                    this.imgList.push(imgArr[1]);
-                }
-            }
+        // 截取图片路径
+        let img = this.detialData.SliderBar;
+        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
+        let arr = img.match(imgReg);
+        for(let m=0;m<arr.length;m++){
+            let imgArr = arr[m].split("\"");
+            this.imgList.push(imgArr[1]);
         }
     }).catch((err)=>{
       throw err;

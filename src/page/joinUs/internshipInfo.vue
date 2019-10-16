@@ -52,14 +52,17 @@
                     <el-form label-position="left" inline class="demo-table-expand">
                     <el-form-item>
                         <div class="duty" v-html="props.row.Content"></div>
-                        <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
+                        <div class="apply-er">
+                            <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
+                            <img :src="companyInfo[0].Memo">
+                        </div>
                     </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
         </el-table>
     </div>
-    <div class="page"><Pagination :total='totalPage' :page="page" @currentPage="currentPage"></Pagination></div>
+    <div class="page"><Pagination :total='totalPage' :pageSize='pageSize' :page="page" @currentPage="currentPage"></Pagination></div>
  </div>
 </template>
 
@@ -93,6 +96,8 @@ export default {
         intrData:[],
         // 企业介绍全部信息
         intrAll:[],
+        // 当搜索职位，使用分页器时，判断渲染哪个函数
+        shouldFn:0,
         // 控制视频的显示
         showVideo:false,
         // swiper配置
@@ -172,7 +177,13 @@ export default {
     },
     currentPage(index){
         this.page = index;
-        this.getdata();
+        // 判断渲染职位请求的函数，还是全部职位的函数
+        if(this.shouldFn == 0){
+            this.getdata();
+        }else{
+            this.search();
+        }
+        this.shouldFn = 0;
 
     },
     getdata(){
@@ -211,7 +222,7 @@ export default {
     //  获取对应招聘类型  公司的企业信息
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchID",
-        FieldNames:['Name','Content','SliderBar','URLLink'],
+        FieldNames:['Name','Content','SliderBar','URLLink','Memo'],
         DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "CompanyInfo",
     }).then((res)=>{
@@ -239,6 +250,21 @@ export default {
             this.imgList.push(imgArr[1]);
         }
         
+        // 截取二维码的url
+        if(this.companyInfo[0].Memo != null){
+            let erImg = this.companyInfo[0].Memo;
+            let erArr = erImg.match(imgReg);
+            for(let t=0;t<erArr.length;t++){
+                let erUrl = erArr[t].split("\"");
+                this.companyInfo[0].Memo = erUrl[1];
+            }
+        }
+
+        // 判断视频路径是否为空
+        if(this.companyInfo[0].VideoPath != null){
+            this.showVideo = true;
+        }
+
     }).catch((err)=>{
         throw err;
     })
@@ -273,6 +299,11 @@ export default {
         height: 970px;
         position: relative;
         img{
+            width: 6rem;
+            height: 4rem;
+            border: .06rem solid #fff;
+        }
+        video{
             width: 6rem;
             height: 4rem;
             border: .06rem solid #fff;
@@ -401,11 +432,20 @@ export default {
     color: #fff;
     border-radius: .05rem;
     font-size: .16rem;
-    margin-top: .28rem;
 }
 .table .duty>p{
     font-size: .14rem;
     color: #333;
     line-height: .24rem;
+}
+.apply-er{
+    margin-top: .28rem;
+    display: flex;
+    align-items: center;
+    img{
+        width: 1rem;
+        height: 1rem;
+        margin-left: .6rem;
+    }
 }
 </style>

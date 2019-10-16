@@ -31,7 +31,7 @@ export default {
     //  路由跳转后，使input值变为空，并失去焦点 
      $route(to,from){
         let inp = document.getElementsByTagName("input")[0];
-        inp.value = "";
+        this.inputVal = "";
         inp.blur();
      }
  }

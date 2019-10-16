@@ -74,6 +74,5 @@ function accordion(id,option) {
 }
 
 export {
-    accordion,
-    playPic
+    accordion
 }

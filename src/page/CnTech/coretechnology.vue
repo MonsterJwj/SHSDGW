@@ -1,37 +1,65 @@
 <template>
  <div class="core">
-       <div class="aptitude" v-for="(item,index) in coretechList" :key="index">
+    <div class="aptitude" v-for="(item,index) in coretechList" :key="index">
        <router-link :to='"/cntech/coredetia/"+item.ID' target="_blank">
-              <div class="describe">
-                     <h6>{{item.Name}}</h6>
-                     <p class="time">{{item.NewsDate}}</p>
-                     <p>{{item.Overview}}</p>
-              </div>
-              <div class="lookXiangxi"><img src="../../assets/img/xiangxi.jpg"></div>
+            <div class="describe">
+                <h6>{{item.Name}}</h6>
+                <p class="time">{{item.PubDate | FormatTime}}</p>
+                <p>{{item.Overview}}</p>
+            </div>
+            <div class="lookXiangxi"><img src="../../assets/img/xiangxi.jpg"></div>
        </router-link>
     </div>
+    <!-- 分页器 -->
+    <div class="page"><Pagination :total='totalPage' :pageSize='PageSize' :page="page" @currentPage="currentPage"></Pagination></div>
  </div>
 </template>
 
 <script>
+import Pagination from '../../component/Pagination'
 export default {
  data() {
     return {
-        coretechList:[]
+        coretechList:[],
+        totalPage:0,
+        page:1,
+        PageSize: 5
+    }
+ },
+ methods:{
+    getData(){
+        this.$axios.post('/api/Table/TableAction',{
+            Action: "SearchBlurEnabled",
+            FieldNames:['Name','PubDate','ID','Overview'],
+            DataJSONString: JSON.stringify({ TechInnovationType: 3 }),
+            Resource: "TechInnovation",
+            PageControl: { PageSize: this.PageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
+        }).then((res)=>{
+            this.coretechList = JSON.parse(res.data).Rows;
+            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
+        }).catch((err)=>{
+            throw err;
+        });
+    },
+    currentPage(index){
+        this.page = index;
+        this.getData();
     }
  },
  mounted(){
     //  核心科技
-    this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchBlurEnabled",
-        DataJSONString: JSON.stringify({ TechInnovationType: 3 }),
-        Resource: "TechInnovation",
-        PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
-    }).then((res)=>{
-        this.coretechList = JSON.parse(res.data).Rows;
-    }).catch((err)=>{
-        throw err;
-    });
+    this.getData();
+ },
+ components: {
+    Pagination 
+ },
+ filters:{
+    FormatTime(val){
+        if(val != null){
+            val = val.substring(0,10);
+        }
+        return val;
+    }
  }
 }
 </script>

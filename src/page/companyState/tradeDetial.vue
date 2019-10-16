@@ -6,10 +6,10 @@
      </SmallBanner>
      <div class="detialNews">
         <div class="newCont">
-            <div class="detailDec" v-for="(item,index) in detialList.Rows" :key="index">
-                <h5>{{item.Name}}</h5>
-                <p>{{item.PubDate | FormatTime}}</p>
-                <div class="describe" v-html="item.Content"></div>
+            <div class="detailDec">
+                <h5>{{detialList.Name}}</h5>
+                <p>{{detialList.PubDate | FormatTime}}</p>
+                <div class="describe" v-html="detialList.Content"></div>
             </div>
         </div>
      </div>
@@ -39,19 +39,13 @@ export default {
         throw err;
     });
     this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchAllEnabled",
-        DataJSONString: JSON.stringify({}),
+        Action: "SearchID",
+        DataJSONString: JSON.stringify({ID:this.$route.params.id}),
         Resource: "TradeNews",
         PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.detialList = JSON.parse(res.data);
-        // 根据id来渲染页面
-        for(let i=0;i<this.detialData.length;i++){
-            // 根据id获取对应的内容
-            if(this.$route.params.id == this.detialData[i].ID){
-                this.detialData = this.detialData[i];
-            }
-        }
+        this.detialList = JSON.parse(res.data)[0];
+        console.log(this.detialList)
     }).catch((err)=>{
         throw err;
     });
