@@ -1,7 +1,10 @@
 <template>
  <div class="scode">
      <SmallBanner>
-        <span>业务范围</span><span class="arrows"></span><span>投资</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>业务范围</el-breadcrumb-item>
+            <el-breadcrumb-item>投资</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">投资</h4>
      </SmallBanner>
@@ -82,6 +85,7 @@ export default {
         img{
             width: 11.1rem;
             height: 3.67rem;
+            max-width: 11.1rem;
         }
     }
     .txt{

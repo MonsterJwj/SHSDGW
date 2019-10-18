@@ -1,5 +1,6 @@
 <template>
  <div class="recruitAll">
+     <!-- 放大查看图片 -->
      <div class="picCover" v-show="coverShow">
         <div class="bigPic">
             <div class="bigBox">
@@ -10,9 +11,15 @@
         </div>
      </div>
      <div class="styBanner">
+        <!-- banner -->
         <div class="topTit">
-            <span>加入我们</span><span class="arrows"></span><span>校园招聘</span><span class="arrows"></span><span>{{companyName}}</span><span class="arrows"></span>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/joinUs/columnintroduced' }">加入我们</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/joinUs/socialTalents' }">社会人才</el-breadcrumb-item>
+                <el-breadcrumb-item>{{companyName}}</el-breadcrumb-item>
+            </el-breadcrumb>
         </div>
+        <!-- banner轮播 -->
         <div class="pic_play">
             <swiper :options="swiperOption">
                 <swiper-slide v-for="(slide, index) in imgList" :key="index"><img :src="slide" @click="magnify(index)"></swiper-slide> 
@@ -21,6 +28,7 @@
             <div class="swiper-button-prev"></div>
         </div>
     </div>
+    <!-- 企业介绍 -->
     <div class="mainCont">
         <div class="companyIntr" v-for="(item,index) in companyInfo" :key="index">
             <h4>{{item.Name}}</h4>
@@ -31,6 +39,7 @@
             <div class="packUp"><span @click="packUp">收起</span></div>
         </div>
     </div>
+    <!-- 招聘信息 -->
     <div class="table">
         <div class="school_tit">
             <h4>社会人才招聘</h4>
@@ -209,7 +218,6 @@ export default {
                 this.companyData[i].PubDate = this.companyData[i].PubDate.substring(0,10);
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
-            console.log("111:"+this.totalPage);
         }).catch((err)=>{
             throw err;
         });
@@ -263,7 +271,8 @@ export default {
         if(this.companyInfo[0].VideoPath != null){
             this.showVideo = true;
         }
-
+    }).then((res)=>{ 
+        document.title = this.companyName + '_社会人才招聘_加入我们' + '_上海隧道工程有限公司';
     }).catch((err)=>{
         throw err;
     })
@@ -301,6 +310,7 @@ export default {
             width: 6rem;
             height: 4rem;
             border: .06rem solid #fff;
+            max-width: 6rem;
         }
         video{
             width: 6rem;
@@ -331,22 +341,13 @@ export default {
             height: .30rem;
             display: flex;
             align-items: center;
-            span{
-                margin-left: .20rem;
-            }
-            .arrows{
-                display: inline-block;
-                width: .05rem;
-                height: .10rem;
-                background: url("../../assets/img/triangle.png") no-repeat;
-                background-size: 100% 100%;
-            }
         }
         .pic_play{
             position: relative;
             img{
                 width: 3rem;
                 height: 2rem;
+                max-width: 3rem;
             }
             .swiper-container .swiper-wrapper{
                 position: absolute!important;
@@ -444,6 +445,7 @@ export default {
         width: 1rem;
         height: 1rem;
         margin-left: .6rem;
+        max-width: 1rem;
     }
 }
 </style>

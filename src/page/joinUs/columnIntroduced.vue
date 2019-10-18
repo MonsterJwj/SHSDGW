@@ -1,7 +1,9 @@
 <template>
  <div class="column">
     <SmallBanner>
-        <span>加入我们</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>加入我们</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
     </SmallBanner>
     <div class="contBox">
@@ -137,6 +139,7 @@ export default {
             img{
                 width: 3.74rem;
                 height: 1.1rem;
+                max-width: 3.74rem;
             }
         }
     }
@@ -157,6 +160,7 @@ export default {
                     img{
                         width: 2.63rem;
                         height: 2.55rem;
+                        max-width: 2.63rem;
                     }
                 }
             }

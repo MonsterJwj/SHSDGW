@@ -12,12 +12,12 @@
 export default {
  data() {
     return {
-        // 科技资质祥情表
+        // 核心科技祥情表
         detialList:[]
     }
  },
  mounted(){
-     // 科技资质与获奖祥情表
+     // 核心科技祥情表
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchID",
         FieldNames:['Name','PubDate','ID','Content'],
@@ -26,6 +26,8 @@ export default {
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.detialList = JSON.parse(res.data)[0];
+    }).then((res)=>{ 
+        document.title = this.detialList.Name + '_核心科技_科技创新' + '_上海隧道工程有限公司';
     }).catch((err)=>{
       throw err;
     });
@@ -71,6 +73,7 @@ export default {
                     margin: .2rem auto;
                     width: 5.57rem;
                     height: 3.95rem;
+                    max-width: 5.57rem;
                     &:nth-child(2){
                         margin: 0 .10rem;
                     }

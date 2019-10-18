@@ -67,6 +67,8 @@ export default {
             let imgArr = arr[m].split("\"");
             this.imgList.push(imgArr[1]);
         }
+    }).then((res)=>{ 
+        document.title = this.detialData.Name + '_工程建设_业务范围' + '_上海隧道工程有限公司';
     }).catch((err)=>{
       throw err;
     });
@@ -120,6 +122,7 @@ export default {
                 margin-top: .2rem;
                 width: 5rem;
                 height: 3rem;
+                max-width: 5rem;
             }
         }
     }
@@ -148,6 +151,7 @@ export default {
             width: 5.6rem;
             height: 3.4rem;
             cursor: pointer;
+            max-width: 5.6rem;
         }
         .smallPic{
             margin-top: .2rem;
@@ -165,6 +169,7 @@ export default {
             img{
                 width: 1.21rem;
                 height: .73rem;
+                max-width: 1.21rem;
                 margin: 0;
             }
             .swiper-button-prev{

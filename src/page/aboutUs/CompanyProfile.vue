@@ -1,7 +1,10 @@
 <template>
  <div class="profile">
      <SmallBanner>
-        <span>关于我们</span><span class="arrows"></span><span>公司概况</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>关于我们</el-breadcrumb-item>
+            <el-breadcrumb-item>公司概况</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">公司概况</h4>
      </SmallBanner>

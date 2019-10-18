@@ -42,6 +42,7 @@ export default {
             margin: .4rem auto;
             width: 7.9rem;
             height: 3.5rem;
+            max-width: 7.9rem;
         }
         /deep/p{
             text-indent: .28rem;

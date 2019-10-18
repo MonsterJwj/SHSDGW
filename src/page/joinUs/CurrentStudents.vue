@@ -1,7 +1,10 @@
 <template>
  <div class="talents">
     <SmallBanner>
-        <span>加入我们</span><span class="arrows"></span><span>校园招聘</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item  :to="{ path: '/joinUs/columnintroduced' }">加入我们</el-breadcrumb-item>
+            <el-breadcrumb-item>校园招聘</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">校园招聘</h4>
         <div class="rightSea" slot="rightCont">
@@ -227,5 +230,6 @@ export default {
     width: 1rem;
     height: 1rem;
     margin-left: .6rem;
+    max-width: 1rem;
 }
 </style>

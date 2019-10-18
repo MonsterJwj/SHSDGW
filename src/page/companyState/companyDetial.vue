@@ -1,7 +1,11 @@
 <template>
  <div class="newsDetial">
     <SmallBanner>
-        <span>公司动态</span><span class="arrows"></span><span>公司新闻</span><span class="arrows"></span><span>新闻详情</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>公司动态</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/state/companyNews' }">公司新闻</el-breadcrumb-item>
+            <el-breadcrumb-item>新闻详情</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
      </SmallBanner>
      <div class="detialNews">
@@ -44,6 +48,8 @@ export default {
         Resource: "News",
     }).then((res)=>{
         this.detialList = JSON.parse(res.data)[0];
+    }).then((res)=>{ 
+        document.title = this.detialList.Name + '_公司新闻_公司动态' + '_上海隧道工程有限公司';
     }).catch((err)=>{
         throw err;
     });
@@ -57,6 +63,23 @@ export default {
             val = val.substring(0,10);
         }
         return val;
+    }
+ },
+ beforeRouteLeave (to, from, next) {
+     // 在当前路由改变，但是该组件被复用时调用
+     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+     // 可以访问组件实例 `this`
+    if(to.meta.title){
+        console.log(1111)
+        document.title = this.detialList.Name + to.meta.title + '_上海隧道工程有限公司';
+        next();
+    }
+ },
+ watch:{
+    $route(to,from){
+        console.log(2222)
+        
     }
  }
 }
@@ -89,6 +112,7 @@ export default {
             /deep/img{
                 width: 6rem;
                 height: 4.01rem;
+                max-width: 7rem;
                 &:nth-child(2){
                     margin-top: .2rem;
                 }

@@ -1,9 +1,21 @@
 <template>
  <div class="cntech">
     <SmallBanner> 
-        <div v-show="titleShow == 1"><span>科技创新</span><span class="arrows"></span></div>
-        <div v-show="titleShow == 2"><span>科技创新</span><span class="arrows"></span><span>科技资质与获奖</span><span class="arrows"></span><span>详情</span><span class="arrows"></span></div>
-        <div v-show="titleShow == 3"><span>科技创新</span><span class="arrows"></span><span>核心科技</span><span class="arrows"></span><span>详情</span><span class="arrows"></span></div>
+        <div v-show="titleShow == 1"><el-breadcrumb separator-class="el-icon-arrow-right"><el-breadcrumb-item>科技创新</el-breadcrumb-item></el-breadcrumb></div>
+        <div v-show="titleShow == 2">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/cntech/research' }">科技创新</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/cntech/aptitude' }">科技资质与获奖</el-breadcrumb-item>
+                <el-breadcrumb-item>详情</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div v-show="titleShow == 3">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/cntech/research' }">科技创新</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/cntech/coretechnology' }">核心科技</el-breadcrumb-item>
+                <el-breadcrumb-item>详情</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <img :src="imgUrl" slot="banner">    
     </SmallBanner>
     <div class="cntechCont">

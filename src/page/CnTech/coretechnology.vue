@@ -74,6 +74,7 @@ export default {
                 margin-top: .4rem;
                 width: 7.57rem;
                 height: 9.46rem;
+                max-width: 7.57rem;
             }
         }
     }
@@ -107,6 +108,11 @@ export default {
         }
         .lookXiangxi{
             margin-left: .71rem;
+            img{
+                width: 1rem;
+                height: 1.02rem;
+                max-width: 1rem;
+            }
         }
     }
 }

@@ -49,16 +49,18 @@ import Search from '../page/search.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
-      redirect:"/home"
+      redirect:"/home",
+      meta: { title: '首页'}
     },
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: { title: '首页',keywords:"首页"}
     },
     {
       path: '/about',
@@ -68,22 +70,26 @@ export default new Router({
         {
           path: 'companyProfile',
           name: 'CompanyProfile',
-          component: CompanyProfile
+          component: CompanyProfile,
+          meta: { title: '公司概况_关于我们'}
         },
         {
           path: 'framework',
           name: 'Framework',
-          component: Framework
+          component: Framework,
+          meta: { title: '企业架构_关于我们'}
         },
         {
           path: 'developmentHistroy',
           name: 'DevelopmentHistroy',
-          component: DevelopmentHistroy
+          component: DevelopmentHistroy,
+          meta: { title: '发展历程_关于我们'}
         },
         {
           path: 'honor',
           name: 'Honor',
-          component: Honor
+          component: Honor,
+          meta: { title: '荣誉资质_关于我们'}
         },
       ]
     },
@@ -96,6 +102,7 @@ export default new Router({
           path: 'companyNews',
           name: 'CompanyNews',
           component: CompanyNews,
+          meta: { title: '公司动态_公司动态'},
           children:[
             {
               path: 'companydetial/:id',
@@ -108,6 +115,7 @@ export default new Router({
           path: 'tradeNews',
           name: 'TradeNews',
           component: TradeNews,
+          meta: { title: '行业新闻_公司动态'},
           children:[
             {
               path: 'tradedetial/:id',
@@ -126,12 +134,14 @@ export default new Router({
         {
           path: 'invest',
           name: 'Invest',
-          component: Invest
+          component: Invest,
+          meta: { title: '投资_业务范围'}
         },
         {
           path: 'project',
           name: 'Project',
           component: Project,
+          meta: { title: '工程建设_业务范围'},
           children:[
             {
               path: 'projectdetial/:id',
@@ -143,10 +153,10 @@ export default new Router({
         {
           path: 'product',
           name: 'Product',
-          component: Product
+          component: Product,
+          meta: { title: '产品制造_业务范围'}
         }
-      ],
-      // redirect: '/scode/invest'     
+      ]    
     },
     {
       path: '/joinUs',
@@ -157,6 +167,7 @@ export default new Router({
           path: 'columnintroduced',
           name: 'ColumnIntroduced',
           component: ColumnIntroduced,
+          meta: { title: '加入我们'},
           children:[
             {
               path: 'careerdetial',
@@ -178,17 +189,20 @@ export default new Router({
         {
           path: 'socialTalents',
           name: 'SocialTalents',
-          component: SocialTalents
+          component: SocialTalents,
+          meta: { title: '社会人才_加入我们'},
         },
         {
           path: 'currentstudents',
           name: 'CurrentStudents',
-          component: CurrentStudents
+          component: CurrentStudents,
+          meta: { title: '应届学生_加入我们'},
         },
         {
           path: 'internship',
           name: 'Internship',
-          component: Internship
+          component: Internship,
+          meta: { title: '实习见习_加入我们'}
         },
         {
           path: 'studentinfo/:id',
@@ -217,16 +231,19 @@ export default new Router({
           path: 'culturecont',
           name: 'CultureCont',
           component: CultureCont,
+          meta: { title: '隧文化_企业文化'}
         },
         {
           path: 'dutycont',
           name: 'DutyCont',
           component: DutyCont,
+          meta: { title: '社会责任_企业文化'}
         },
         {
           path: 'windowcont',
           name: 'WindowCont',
           component: WindowCont,
+          meta: { title: '视窗_企业文化'}
         }
       ],
       redirect: '/culture/culturecont'
@@ -240,16 +257,19 @@ export default new Router({
           path: 'aptitude',
           name: 'Aptitude',
           component: Aptitude,
+          meta: { title: '科技资质与获奖_科技创新'}
         },
         {
           path: 'research',
           name: 'Research',
           component: Research,
+          meta: { title: '研发体系_科技创新'}
         },
         {
           path: 'coretechnology',
           name: 'CoreTechnology',
           component: CoreTechnology,
+          meta: { title: '核心科技_科技创新'}
         },
         {
           path: 'aptitudedetail/:id',
@@ -267,7 +287,18 @@ export default new Router({
     {
       path: '/search',
       name: 'Search',
-      component: Search
+      component: Search,
+      meta: { title: '站内搜索'}
     },
   ]
 })
+
+router.beforeEach((to,from,next) => {
+  if(to.meta.title){
+    document.title = to.meta.title + '_上海隧道工程有限公司';
+    document.keywords = to.meta.keywords + '-上海隧道工程有限公司';
+  }
+  next()
+});
+
+export default router

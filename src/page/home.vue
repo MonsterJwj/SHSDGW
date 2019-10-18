@@ -80,6 +80,7 @@ export default {
         img{
           width: 100%;
           height: 1.1rem;
+          max-width: 3.79rem;
         }
       }
       .pro_Box:last-child{

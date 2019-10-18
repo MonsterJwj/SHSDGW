@@ -1,7 +1,10 @@
 <template>
  <div class="framework">
      <SmallBanner>
-        <span>关于我们</span><span class="arrows"></span><span>企业架构</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>关于我们</el-breadcrumb-item>
+            <el-breadcrumb-item>企业框架</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">企业架构</h4>
      </SmallBanner>
@@ -57,6 +60,7 @@ export default {
         margin-left: .61rem;
         width:10.69rem;
         height: 19.41rem;
+        max-width: 10.69rem;
     }
 }
 </style>

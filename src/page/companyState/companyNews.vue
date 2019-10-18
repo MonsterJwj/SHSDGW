@@ -2,7 +2,10 @@
  <div class="news">
     <div class="news" v-if="showDetial">
         <SmallBanner>
-            <span>公司动态</span><span class="arrows"></span><span>公司新闻</span><span class="arrows"></span>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item>公司动态</el-breadcrumb-item>
+                <el-breadcrumb-item>公司新闻</el-breadcrumb-item>
+            </el-breadcrumb>
             <img :src="imgUrl" slot="banner">
         </SmallBanner>
         <div class="cont">
@@ -217,6 +220,7 @@ export default {
             margin-right: .80rem;
             width: 5.2rem;
             height: 2.7rem;
+            max-width: 5.2rem;
         }
         .lookDet{
             margin-top: .17rem;
@@ -251,6 +255,7 @@ export default {
             margin-left: .76rem;
             width: 1rem;
             height: 1.02rem;
+            max-width: 1rem;
         }
     }
 }

@@ -44,6 +44,11 @@ export default {
     width: 100%;
     border-bottom: .02rem solid #08498b;
     padding: .28rem 0 .12rem 0;
+    img{
+        width: 2.35rem;
+        height: .55rem;
+        max-width: 2.35rem;
+    }
     .sea{
         flex: 1;
         vertical-align: middle;

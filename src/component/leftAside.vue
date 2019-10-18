@@ -334,6 +334,7 @@
       img{
         width: .93rem;
         height: .93rem;
+        max-width: .93rem;
       }
 
       .equ {

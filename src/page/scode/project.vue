@@ -1,7 +1,10 @@
 <template>
  <div class="project">
      <SmallBanner>
-        <span>业务范围</span><span class="arrows"></span><span>工程建设</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>业务范围</el-breadcrumb-item>
+            <el-breadcrumb-item>工程建设</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title" class="sbanner">工程建设</h4>
         <!-- <select slot="rightCont" name="projectYear">
@@ -138,6 +141,7 @@ export default {
                     img{
                         width: 2.64rem;
                         height: 1.38rem;
+                        max-width: 2.64rem;
                     }
                     p{
                         line-height: .28rem;

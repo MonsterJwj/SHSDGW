@@ -1,7 +1,10 @@
 <template>
  <div class="honor">
     <SmallBanner>
-        <span>关于我们</span><span class="arrows"></span><span>荣誉资质</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>关于我们</el-breadcrumb-item>
+            <el-breadcrumb-item>荣誉资质</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">荣誉资质</h4>
     </SmallBanner>

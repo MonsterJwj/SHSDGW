@@ -1,7 +1,11 @@
 <template>
  <div class="newsDetial">
     <SmallBanner>
-        <span>公司动态</span><span class="arrows"></span><span>行业新闻</span><span class="arrows"></span><span>新闻详情</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>公司动态</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/state/tradeNews' }">行业新闻</el-breadcrumb-item>
+            <el-breadcrumb-item>新闻详情</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
      </SmallBanner>
      <div class="detialNews">
@@ -45,7 +49,8 @@ export default {
         PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.detialList = JSON.parse(res.data)[0];
-        console.log(this.detialList)
+    }).then((res)=>{ 
+        document.title = this.detialList.Name + '_行业新闻_公司动态' + '_上海隧道工程有限公司';
     }).catch((err)=>{
         throw err;
     });
@@ -91,6 +96,7 @@ export default {
             /deep/img{
                 width: 6rem;
                 height: 4.01rem;
+                max-width: 7rem;
                 &:nth-child(2){
                     margin-top: .2rem;
                 }

@@ -26,6 +26,8 @@ export default {
         PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.honorData = JSON.parse(res.data).Rows[0];
+    }).then((res)=>{ 
+        document.title = this.honorData.Name + '_加入我们' + '_上海隧道工程有限公司';
     }).catch((err)=>{
         throw err;
     });

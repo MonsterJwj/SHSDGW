@@ -1,34 +1,22 @@
 <template>
  <div class="sma_banner">
-     <div class="topNav">
+    <div class="topNav">
         <slot></slot>
-     </div>
-     <slot name="banner"></slot>
-     <div class="titleSel">
+    </div>
+    <slot name="banner"></slot>
+    <div class="titleSel">
         <slot name="title"></slot>
         <slot name="rightCont"></slot>
-     </div>
-    <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-    </el-breadcrumb> -->
+    </div>
  </div>
 </template>
 
 <script>
 export default {
  data() {
- return {
+    return {
 
- }
- },
- methods: {
-
- },
- components: {
-
+    }
  }
 }
 </script>
@@ -37,14 +25,12 @@ export default {
 .sma_banner{
     width: 11.9rem;
     color: #fff;
+    overflow: hidden;
     .topNav{
         background: #004387;
         height: .30rem;
         display: flex;
         align-items: center;
-        span{
-            margin-left: .20rem;
-        }
         .arrows{
             display: inline-block;
             width: .05rem;
@@ -56,6 +42,7 @@ export default {
     img{
         width: 11.9rem;
         height: 2rem;
+        max-width: 11.9rem;
     }
     .titleSel{
         display: flex;

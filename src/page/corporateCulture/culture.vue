@@ -1,7 +1,9 @@
 <template>
  <div class="culture">
     <SmallBanner>
-        <span>企业文化</span><span class="arrows"></span>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>企业文化</el-breadcrumb-item>
+        </el-breadcrumb>
         <img :src="imgUrl" slot="banner">
     </SmallBanner>
     <div class="cultureCont">

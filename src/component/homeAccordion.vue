@@ -58,6 +58,7 @@ export default {
                 display: block;
                 img{
                     height: 1.72rem;
+                    max-width: 4.68rem;
                 }
             }
         }

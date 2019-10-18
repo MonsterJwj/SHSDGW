@@ -139,9 +139,38 @@ article{
     border-radius: .05rem;
     border: 1px solid #dcdcdc;
   }
-  /* @media all and (max-width: 1200px) {
-    #app{
-      width: auto;
-    }
-  } */
+  
+  /* 面包屑 */
+  .topNav .el-breadcrumb{
+    margin-left: .2rem;
+  }
+  .topNav .el-breadcrumb__inner{
+    color: #fff;
+    font-size: .12rem;
+  }
+  .topNav .el-breadcrumb__inner.is-link{
+    color: #fff;
+    font-weight: 400;
+  }
+  .topNav .el-icon-arrow-right:before {
+    content: '';
+    display: inline-block;
+    width: .05rem;
+    height: .10rem;
+    background: url("./assets/img/triangle.png") no-repeat;
+    background-size: 100% 100%;
+  }
+  .topNav .el-breadcrumb__separator[class*=icon] {
+    margin: 0 .15rem;
+  }
+  .topNav .el-breadcrumb__inner.is-link:hover {
+    color: #fff;
+  }
+  .topNav .el-breadcrumb__item:last-child .el-breadcrumb__inner{
+    color: #fff;
+    font-size: .12rem;
+  }
+  .topNav .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
+    color: #fff;
+  }
 </style>
