@@ -1,8 +1,10 @@
 <template>
  <div class="search">
      <SmallBanner>
-         <span>站内搜索</span><span class="arrows"></span>
-         <img :src="imgUrl" slot="banner">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item>站内搜索</el-breadcrumb-item>
+        </el-breadcrumb>
+        <img :src="imgUrl" slot="banner">
      </SmallBanner>
      <div class="searchCont">
          <div class="seaInput">

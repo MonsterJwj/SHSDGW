@@ -38,21 +38,28 @@ export default {
     /deep/h6,p{
         line-height: .26rem;
         font-size: 14px;
+
+        img{
+            position: absolute;
+            right: .31rem;
+            top: .25rem;
+
+            width: 3.4rem;
+            height: 2.81rem;
+            max-width: 3.4rem;
+        }      
     }
     .text{
         width: 7.19rem;
+        /deep/div{
+            img{
+                width: 7rem;
+                height: 9.42rem;
+            }
+        }
     }
     /deep/h6:nth-child(11){
         margin-top: 0;
     }
-    /deep/img{
-        position: absolute;
-        right: .31rem;
-        top: .25rem;
-
-        width: 3.4rem;
-        height: 2.81rem;
-        max-width: 3.4rem;
-    }      
 }
 </style>

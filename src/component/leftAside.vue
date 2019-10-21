@@ -179,8 +179,8 @@
         }
       },
       listenRoute(){
-        let path = this.$route.path
-        let a;
+        let path = this.$route.path;
+        let a = -1;
         let b = -1;
         for(let i = 0; i < this.navList.length; i++){
           if(path.indexOf(this.navList[i].url) != -1){
@@ -200,6 +200,11 @@
         if(b > -1){
           this.twoIndex = b;
           this.navList[a].show = true;
+        }else{
+          this.twoIndex = -1;
+          this.navList.forEach((item) => {
+            item.show = false
+          })
         }
       },
       recruit(){

@@ -42,6 +42,7 @@ export default {
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
       this.historyList = JSON.parse(res.data).Rows[0];
+      console.log(this.historyList.Content)
     }).catch((err)=>{
       throw err;
     });

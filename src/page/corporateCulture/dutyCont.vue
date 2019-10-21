@@ -38,14 +38,23 @@ export default {
     letter-spacing: 0rem;
     color: #333;
     .cont{
+        /deep/span{
+            display: block;
+            height: auto;
+        }
         /deep/img{
             margin: .4rem auto;
             width: 7.9rem;
-            height: 3.5rem;
             max-width: 7.9rem;
         }
-        /deep/p{
-            text-indent: .28rem;
+        /deep/.ke-insertfile>span{
+            height: .4rem;
+            line-height: .4rem;
+            width: 3.96rem;
+            background: #f7f7f7 url('../../assets/img/icon_word.png') no-repeat .2rem center;
+            background-size: .14rem .16rem;
+            text-indent: .4rem;
+
         }
     }         
 }

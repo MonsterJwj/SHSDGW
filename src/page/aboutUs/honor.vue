@@ -8,7 +8,9 @@
         <img :src="imgUrl" slot="banner">
         <h4 slot="title">荣誉资质</h4>
     </SmallBanner>
-    <div class="hon_content" v-html="honorList.Content"></div>
+    <div class="hon_content">
+        <p v-for="(item, index) in content" :key="index" v-html="item"></p>
+    </div>
  </div>
 </template>
 
@@ -18,11 +20,9 @@ export default {
  data() {
     return {
         honorList:[],
-        imgUrl:""
+        imgUrl:"",
+        content: []
     }
- },
- methods: {
-
  },
 mounted(){
     this.$axios.post('/api/Table/TableAction',{
@@ -45,7 +45,17 @@ mounted(){
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.honorList = JSON.parse(res.data).Rows[0];
-        // let p = this.honorList.Content.split('</p>');
+        // 为了使带有<br />标签 不添加蓝色圆点
+        let p = this.honorList.Content;
+        let patt1 = new RegExp('(?<=<p>)((\\w|\\W)*?)(?=<\/p>)','gi');
+        let arr = p.match(patt1);
+        this.content = arr.map((item) =>{
+            if(item.indexOf('<br />') == -1){
+                return `<span class='active'>${item}</span>`
+            }else{
+                return `<span>${item}</span>`
+            }
+        })
     }).catch((err)=>{
       throw err;
     });
@@ -66,15 +76,12 @@ mounted(){
         line-height: .26rem;
         letter-spacing: 0rem;
         color: #333333;
-        &:nth-child(7)::before{
-            width: 0;
-            height: 0;
+        span{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
         }
-        &:last-child::before{
-            width: 0;
-            height: 0;
-        }
-        &:before {
+        span.active:before {
             content: "";
             display: inline-block;
             width: .08rem;

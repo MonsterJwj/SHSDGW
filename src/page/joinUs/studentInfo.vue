@@ -12,7 +12,7 @@
      </div>
      <div class="styBanner">
          <!-- banner -->
-        <div class="topTit">
+        <div class="topNav">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/joinUs/columnintroduced' }">加入我们</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{ path: '/joinUs/currentstudents' }">校园招聘</el-breadcrumb-item>
@@ -342,7 +342,7 @@ export default {
     .styBanner{
         width: 11.9rem;
         color: #fff;
-        .topTit{
+        .topNav{
             background: #004387;
             height: .30rem;
             display: flex;
