@@ -96,7 +96,6 @@ section {
 /* 图片自适应 */
 
 img {
-    display: block;
     height: auto;
     /* ie8 */
     -ms-interpolation-mode: bicubic;

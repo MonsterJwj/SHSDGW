@@ -59,7 +59,6 @@ export default {
     /deep/img{
         margin-left: .61rem;
         width:10.69rem;
-        height: 19.41rem;
         max-width: 10.69rem;
     }
 }

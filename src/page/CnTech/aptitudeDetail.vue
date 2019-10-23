@@ -63,24 +63,14 @@ export default {
             line-height: .36rem;
         }
         .textDec{
-            width: 80%;
+            width: 100%;
             /deep/p{
                 font-size: 14px;
                 color: #333333;
                 line-height: .26rem;
-                margin-bottom: .26rem;
-                &:first-child{
-                    margin: .19rem 0 .32rem 0;
-                    display: flex;
-                    justify-content: center;
-                    img{
-                        width: 5.57rem;
-                        height: 3.95rem;
-                        max-width: 5.57rem;
-                        &:nth-child(2){
-                            margin: 0 .10rem;
-                        }
-                    }
+                img{
+                    width: 5.57rem;
+                    max-width: 5.57rem;
                 }
             }
             

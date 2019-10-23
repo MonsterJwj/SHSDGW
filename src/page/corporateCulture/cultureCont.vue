@@ -45,7 +45,6 @@ export default {
             top: .25rem;
 
             width: 3.4rem;
-            height: 2.81rem;
             max-width: 3.4rem;
         }      
     }
@@ -54,12 +53,9 @@ export default {
         /deep/div{
             img{
                 width: 7rem;
-                height: 9.42rem;
+                max-width: 7rem;
             }
         }
-    }
-    /deep/h6:nth-child(11){
-        margin-top: 0;
     }
 }
 </style>

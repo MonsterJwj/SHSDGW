@@ -102,7 +102,7 @@ const router = new Router({
           path: 'companyNews',
           name: 'CompanyNews',
           component: CompanyNews,
-          meta: { title: '公司动态_公司动态'},
+          meta: { title: '公司新闻_公司动态'},
           children:[
             {
               path: 'companydetial/:id',

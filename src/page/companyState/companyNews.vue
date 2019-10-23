@@ -60,7 +60,7 @@ export default {
         page:1,
         PageSize: 5,
         showDetial:true,
-        // 请求的全部数据
+        // 当前页显示的全部新闻
         AllList:[],
         // img路径
         imgUrl:"",
@@ -85,6 +85,7 @@ export default {
         }).then((res)=>{
             this.AllList = JSON.parse(res.data).Rows;
 
+            // 概述
             for(let m=0;m< this.AllList.length;m++){
                 if( this.AllList[m].Overview == null){
                     let cont =  this.AllList[m].Content;
@@ -125,12 +126,13 @@ export default {
         Action: "SearchAllEnabled",
         DataJSONString: JSON.stringify({}),
         Resource: "News",
-        PageControl: { PageSize:this.PageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
+        PageControl: { PageSize: this.PageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         let list = JSON.parse(res.data).Rows;
+
         // 判断后台的概述是否为空
         for(let m=0;m<list.length;m++){
-            if(list[m].Overview == null || list[m].Overview == ""){
+            if(list[m].Overview == null){
                 let cont = list[m].Content;
                 var dd = cont.replace(/<\/?.+?>/g,"");
                 var dds = dd.replace(/ /g,"");//dds为得到后的内容
@@ -139,6 +141,7 @@ export default {
         }
         
         this.NewsList = list[0];
+
         // 截取img的src路径
         let img = this.NewsList.Content;
         let regex = /<img.*?src="(.*?)"/;
@@ -146,6 +149,7 @@ export default {
         if(imgSrc != null){
             imgSrc = imgSrc[1];
         }
+
         // 判断后台列表图片字段里是否有图片，如果有就取这个。如果没有就取内容字段里的第一张图片，如果还没有那就把这条新闻的列表格式改成没图片的样子。
         if(this.NewsList.ImagePath != null){
             this.styShow = true;
@@ -169,7 +173,7 @@ export default {
  },
  watch:{
     $route(){
-    this.listenRoute();
+        this.listenRoute();
     }
  },
  filters:{
@@ -218,8 +222,8 @@ export default {
         }
         img{
             margin-right: .80rem;
-            width: 5.2rem;
-            height: 2.7rem;
+            width: 5rem;
+            height: 3rem;
             max-width: 5.2rem;
         }
         .lookDet{

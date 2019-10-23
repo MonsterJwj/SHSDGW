@@ -61,22 +61,16 @@ export default {
             font-size: 24px;
             font-stretch: normal;
             line-height: .36rem;
-            margin-bottom: .2rem;
         }
         .textDec{
-            width: 80%;
+            width: 100%;
             /deep/p{
                 font-size: 14px;
                 color: #333333;
                 line-height: .26rem;
                 img{
-                    margin: .2rem auto;
                     width: 5.57rem;
-                    height: 3.95rem;
                     max-width: 5.57rem;
-                    &:nth-child(2){
-                        margin: 0 .10rem;
-                    }
                 }
             }
             

@@ -1,5 +1,5 @@
 <template>
- <div class="aptitude">
+ <div class="apt">
      <!-- 科技资质 -->
     <div class="aptitude" v-for="(item,index) in aptitudeList" :key="index">
         <router-link :to='"/cntech/aptitudedetail/"+item.ID' target="_blank">
@@ -67,53 +67,39 @@ export default {
 
 <style scoped lang="less">
 .aptitude{
-    .researchPic{
-        /deep/div{
-            display: flex;
-            justify-content: center;
-            img{
-                margin-top: .4rem;
-                width: 7.57rem;
-                height: 9.46rem;
-                max-width: 7.57rem;
+    padding: .32rem 0;
+    border-bottom: .01rem dashed #b2b2b2;
+    a{
+        display: flex;
+        align-items: center;
+        .describe{
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0rem;
+            color: #333333;
+            h6{
+                font-size: 18px;
+                line-height: .36rem;
+                font-weight: bold;
+            }
+            .time{
+                font-size: 12px;
+                line-height: .36rem;
+                color: #666666;
+            }
+            p{
+                font-size: 14px;
+                line-height: .24rem;
             }
         }
+        
     }
-    .aptitude{
-        padding: .32rem 0;
-        border-bottom: .01rem dashed #b2b2b2;
-        a{
-            display: flex;
-            align-items: center;
-            .describe{
-                font-weight: normal;
-                font-stretch: normal;
-                letter-spacing: 0rem;
-                color: #333333;
-                h6{
-                    font-size: 18px;
-                    line-height: .36rem;
-                    font-weight: bold;
-                }
-                .time{
-                    font-size: 12px;
-                    line-height: .36rem;
-                    color: #666666;
-                }
-                p{
-                    font-size: 14px;
-                    line-height: .24rem;
-                }
-            }
-            
-        }
-        .lookXiangxi{
-            margin-left: .71rem;
-            img{
-                width: 1rem;
-                height: 1.02rem;
-                max-width: 1rem;
-            }
+    .lookXiangxi{
+        margin-left: .71rem;
+        img{
+            width: 1rem;
+            height: 1.02rem;
+            max-width: 1rem;
         }
     }
 }

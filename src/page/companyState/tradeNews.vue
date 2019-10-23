@@ -53,21 +53,20 @@ import SmallBanner from '../../component/smallBanner'
 export default {
  data() {
     return {
+        // 最上面的新闻
         tradeList:[],
+        // 当前页显示的全部新闻
         AllList:[],
         imgUrl:"",
         showDetial:true,
         page:1,
         totalPage:0,
         PageSize:5,
+         // 判断应该用哪个布局
         styShow:true
     }
  },
  methods:{
-    currentPage(index){
-        this.page = index;
-        this.getData();
-    },
     listenRoute(){
         if(this.$route.path == "/state/tradeNews"){
             this.showDetial = true;
@@ -84,22 +83,28 @@ export default {
         }).then((res)=>{
             this.AllList = JSON.parse(res.data).Rows;
 
-            for(let m=0;m<list.length;m++){
-                if(list[m].Overview == null || list[m].Overview == ""){
-                    let cont = list[m].Content;
+            // 概述
+            for(let m=0;m<this.AllList.length;m++){
+                if(this.AllList[m].Overview == null){
+                    let cont = this.AllList[m].Content;
                     var dd = cont.replace(/<\/?.+?>/g,"");
                     var dds = dd.replace(/ /g,"");//dds为得到后的内容
-                    list[m].Overview = dds.substring(0,131); 
+                    this.AllList[m].Overview = dds.substring(0,131); 
                 }
             }
 
             if(this.page == 1){
                 this.AllList = this.AllList.slice(1);
             }
+            
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).catch((err)=>{
             throw err;
         });
+    },
+    currentPage(index){
+        this.page = index;
+        this.getData();
     }
  },
  mounted(){
@@ -126,7 +131,7 @@ export default {
 
          // 判断后台的概述是否为空
         for(let m=0;m<list.length;m++){
-            if(list[m].Overview == null || list[m].Overview == ""){
+            if(list[m].Overview == null){
                 let cont = list[m].Content;
                 var dd = cont.replace(/<\/?.+?>/g,"");
                 var dds = dd.replace(/ /g,"");//dds为得到后的内容
@@ -135,6 +140,7 @@ export default {
         }
 
         this.tradeList = list[0];
+
         // 截取img的src路径
         let img = this.tradeList.Content;
         let regex = /<img.*?src="(.*?)"/;
@@ -142,6 +148,7 @@ export default {
         if(imgSrc != null){
             imgSrc = imgSrc[1];
         }
+
         // 判断后台列表图片字段里是否有图片，如果有就取这个。如果没有就取内容字段里的第一张图片，如果还没有那就把这条新闻的列表格式改成没图片的样子。
         if(this.tradeList.ImagePath != null){
             this.styShow = true;
@@ -156,10 +163,6 @@ export default {
     }).catch((err)=>{
         throw err;
     }); 
-
-    if(this.AllList.length == 0){
-        document.getElementsByClassName('page')[0].style.display = 'none';
-    }
 
     this.listenRoute();
 
@@ -217,8 +220,8 @@ export default {
         }
         img{
             margin-right: .8rem;
-            width: 5.2rem;
-            height: 2.7rem;
+            width: 5rem;
+            height: 3rem;
             max-width: 5.2rem;
         }
         .lookDet{

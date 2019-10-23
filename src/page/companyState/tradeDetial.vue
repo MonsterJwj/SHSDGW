@@ -90,29 +90,19 @@ export default {
         }
         .describe{
             width: 100%;
-            margin: .19rem 0 .32rem 0;
+            margin-top: .19rem;
             display: flex;
             flex-direction: column;
             /deep/img{
                 width: 6rem;
-                height: 4.01rem;
                 max-width: 7rem;
-                &:nth-child(2){
-                    margin-top: .2rem;
-                }
+                display: inline-block;
             }
             /deep/p{
                 line-height: .26rem;
                 text-indent: .25rem;
                 font-size: 14px;
-                &:nth-child(1){
-                    display: flex;
-                    justify-content: center;
-                }
-                &:nth-child(2){
-                    display: flex;
-                    justify-content: center;
-                }
+                margin-bottom: .25rem;
             }
         }
         

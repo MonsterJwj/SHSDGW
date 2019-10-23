@@ -30,12 +30,10 @@
     </div>
     <!-- 侧边栏 二维码 -->
     <div class="equipment">
-        <img src="../assets/img/erweima.jpg" alt="上海隧道二维码">
-        <div class="equ">
-          <a href="#" class="weibo"></a>
-          <a href="#" class="wechat"></a>
-          <a href="#" class="book"></a>
-        </div>
+        <img src="../assets/img/erweima.jpg">
+        <p>隧道股份</p>
+        <img src="../assets/img/g_erweima.jpg.png" alt="">
+        <p>上海隧道</p>
     </div>
   </div>
 </template>
@@ -341,32 +339,11 @@
         height: .93rem;
         max-width: .93rem;
       }
-
-      .equ {
-        margin: .20rem 0 0 .02rem;
-        display: flex;
-
-        a {
-          margin-right: .10rem;
-          display: block;
-          width: .20rem;
-          height: .20rem;
-        }
-
-        .weibo {
-          background: url("../assets/img/weibo.jpg") no-repeat;
-          background-size: 100% 100%;
-        }
-
-        .wechat {
-          background: url("../assets/img/WeChat.jpg") no-repeat;
-          background-size: 100% 100%;
-        }
-
-        .book {
-          background: url("../assets/img/book.jpg") no-repeat;
-          background-size: 100% 100%;
-        }
+      p{
+        color: #000;
+        font-size: 12px;
+        line-height: .24rem;
+        font-weight: 500;
       }
     }
   }
