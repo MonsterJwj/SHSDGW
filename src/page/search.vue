@@ -189,7 +189,6 @@ export default {
             /deep/p{
                 font-size: 14px;
                 line-height: .24rem;
-                
             }
         }
     }

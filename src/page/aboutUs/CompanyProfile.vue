@@ -84,11 +84,15 @@ export default {
     padding: .20rem;
     box-sizing: border-box;
     /deep/p{
-        margin: .20rem 0;
+        // margin: .20rem 0;
         font-size: 14px;
         font-weight: normal;
         line-height: .26rem;
         letter-spacing: 0;
+        color: #333333;
+    }
+    /deep/div{
+        line-height: .26rem;
         color: #333333;
     }
 }

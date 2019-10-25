@@ -20,13 +20,14 @@
             </el-breadcrumb>
         </div>
         <!-- banner轮播 -->
-        <div class="pic_play">
+        <div class="pic_play" v-if="showPlayImg">
             <swiper :options="swiperOption">
                 <swiper-slide v-for="(slide, index) in imgList" :key="index"><img :src="slide" @click="magnify(index)"></swiper-slide> 
             </swiper>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
+        <img :src="imgUrl" v-else>
     </div>
     <!-- 企业介绍 -->
     <div class="mainCont">
@@ -35,7 +36,7 @@
             <div class="info">
                 <p v-for="(item,index) in intrData" :key="index" v-html="item"></p>
             </div>
-            <div class="lookMore"><span @click="lookMore">查看更多</span></div>
+            <div class="lookMore" ref="lookMore"><span @click="lookMore">查看更多</span></div>
             <div class="packUp"><span @click="packUp">收起</span></div>
         </div>
     </div>
@@ -63,7 +64,7 @@
                         <div class="duty" v-html="props.row.Content"></div>
                         <div class="apply-er">
                             <a :href="companyInfo[0].URLLink" target="_blank" class="apply">立即申请</a>
-                            <img :src="companyInfo[0].Memo">
+                            <img :src="companyInfo[0].Memo" v-if="companyInfo[0].Memo">
                         </div>
                     </el-form-item>
                     </el-form>
@@ -82,7 +83,7 @@ export default {
     return {
         totalPage:0,
         page:1,
-        pageSize:4,
+        pageSize:10,
         // 控制表头
         showHead:false,
         // 招聘状态
@@ -105,8 +106,12 @@ export default {
         intrData:[],
         // 企业介绍全部信息
         intrAll:[],
+        // 图片路径
+        imgUrl:"",
         // 当搜索职位，使用分页器时，判断渲染哪个函数
         shouldFn:0,
+        // 是否有轮播图
+        showPlayImg:true,
         // 是否初始化视频
         showVideo:false,
         // swiper配置
@@ -153,21 +158,27 @@ export default {
             PageControl: { PageSize:this.pageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
             this.companyAll = JSON.parse(res.data).Rows;
+            let timestamp = null,
+                nowStamp = null;
             for(let i=0;i<=this.companyAll.length-1;i++){
                 // 获取失效日期
                 let staleDated = this.companyAll[i].ExpiredDate;
-                let resdate = staleDated.replace(/-/g,"/");
-                // 失效日期时间戳
-                let timestamp = new Date(resdate).getTime();
-                // 当前时间戳
-                let nowStamp = new Date().getTime();
-                // 判断是否 日期失效
-                if(staleDated == "" || timestamp > nowStamp){
+                 if(staleDated != null){
+                    let resdate = staleDated.replace(/-/g,"/");
+                    // 失效日期时间戳
+                    timestamp = new Date(resdate).getTime();
+                    // 当前时间戳
+                    nowStamp = new Date().getTime();
+                    // 判断是否 日期失效
+                }
+                if(staleDated == null || timestamp > nowStamp){
                     this.recruitStatus = "正在招聘"
                 }else{
                     this.recruitStatus = "已结束"
                 }
-                this.companyAll[i].PubDate = this.companyAll[i].PubDate.substring(0,10);
+                if(this.companyAll[i].PubDate != null){
+                    this.companyAll[i].PubDate = this.companyAll[i].PubDate.substring(0,10);
+                }
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).catch((err)=>{
@@ -187,12 +198,15 @@ export default {
     currentPage(index){
         this.page = index;
         // 判断渲染职位请求的函数，还是全部职位的函数
+        console.log(this.shouldFn)
         if(this.shouldFn == 0){
+            console.log(1111)
             this.getdata();
         }else{
             this.search();
         }
         this.shouldFn = 0;
+        console.log(this.shouldFn)
     },
     getdata(){
         this.$axios.post('/api/Table/TableAction',{
@@ -203,23 +217,28 @@ export default {
         }).then((res)=>{
             
             this.companyAll = JSON.parse(res.data).Rows;
+            let timestamp = null,
+                nowStamp = null;
             for(let i=0;i<=this.companyAll.length-1;i++){
                 // 获取失效日期
                 let staleDated = this.companyAll[i].ExpiredDate;
-                let resdate = staleDated.replace(/-/g,"/");
-                // 失效日期时间戳
-                let timestamp = new Date(resdate).getTime();
-                // 当前时间戳
-                let nowStamp = new Date().getTime();
-                // 判断是否 日期失效
-                if(staleDated == "" || timestamp > nowStamp){
+                 if(staleDated != null){
+                    let resdate = staleDated.replace(/-/g,"/");
+                    // 失效日期时间戳
+                    timestamp = new Date(resdate).getTime();
+                    // 当前时间戳
+                    nowStamp = new Date().getTime();
+                    // 判断是否 日期失效
+                }
+                if(staleDated == null || timestamp > nowStamp){
                     this.recruitStatus = "正在招聘"
                 }else{
                     this.recruitStatus = "已结束"
                 }
-                this.companyAll[i].PubDate = this.companyAll[i].PubDate.substring(0,10);
-            }           
-            
+                if(this.companyAll[i].PubDate != null){
+                    this.companyAll[i].PubDate = this.companyAll[i].PubDate.substring(0,10);
+                }
+            }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).catch((err)=>{
             throw err;
@@ -240,7 +259,7 @@ export default {
             let cont = this.companyInfo[0].Content.split("</p>")
             if(cont.length <= 2){
                 this.$nextTick(()=>{
-                    document.getElementsByClassName('lookMore')[0].style.block = 'none';
+                    document.getElementsByClassName('lookMore')[0].style.display = 'none';
                 })
             }
             for(let t=0;t<cont.length;t++){
@@ -248,22 +267,23 @@ export default {
             }
             this.intrData = this.intrAll.slice(0,2);
 
-            // 截取img的src路径
+             // 截取img的src路径
             let img = this.companyInfo[0].SliderBar;
-            let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-            let arr = img.match(imgReg);
-            for(let m=0;m<arr.length;m++){
-                let imgArr = arr[m].split("\"");
-                this.imgList.push(imgArr[1]);
+            if(img != ''){
+                while (img.indexOf('src=')>=0) {
+                    img=img.substring(img.indexOf('src=')+5);
+                    this.imgList.push(img.substring(0,img.indexOf('" ')));
+                }
+            }else{
+                this.showPlayImg = false;
             }
 
              // 截取二维码的url
             if(this.companyInfo[0].Memo != ""){
                 let erImg = this.companyInfo[0].Memo;
-                let erArr = erImg.match(imgReg);
-                for(let t=0;t<erArr.length;t++){
-                    let erUrl = erArr[t].split("\"");
-                    this.companyInfo[0].Memo = erUrl[1];
+                while (erImg.indexOf('src=')>=0) {
+                    erImg=erImg.substring(erImg.indexOf('src=')+5);
+                    this.companyInfo[0].Memo = erImg.substring(0,erImg.indexOf('" '));
                 }
             }
 
@@ -279,9 +299,22 @@ export default {
     }
  },
  mounted(){
+     this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['ImagePath'],
+        DataJSONString: JSON.stringify({CommonInfoType:14}),
+        Resource: "CommonInfo",
+        PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        let img = JSON.parse(res.data).Rows[0];
+        this.imgUrl = img.ImagePath;
+    }).catch((err)=>{
+        throw err;
+    });
     //  获取对应招聘类型  公司的企业校园招聘职位信息
     this.getdata();
     this.mounteData();
+    
  },
  components: {
     Pagination
@@ -342,6 +375,10 @@ export default {
     .styBanner{
         width: 11.9rem;
         color: #fff;
+        &>img{
+            width: 11.9rem;
+            max-width: 11.9rem;
+        }
         .topNav{
             background: #004387;
             height: .30rem;
@@ -378,8 +415,10 @@ export default {
                 line-height: .26rem;
                 letter-spacing: 0;
                 color: #333333;
-                text-indent: .28rem;
-                margin-bottom: .27rem;
+            }
+            /deep/div{
+                line-height: .26rem;
+                color: #333333;
             }
             .packUp,.lookMore{
                 padding-right: .14rem;

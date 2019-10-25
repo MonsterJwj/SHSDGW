@@ -33,8 +33,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Axios from 'axios';
 Vue.use(ElementUI)
 
+// axios兼容IE
 import promise from 'es6-promise';
-import { from } from '_array-flatten@2.1.2@array-flatten'
+// import { from } from '_array-flatten@2.1.2@array-flatten'
+import 'babel-polyfill'
 promise.polyfill();
 
 Vue.config.productionTip = false

@@ -61,11 +61,9 @@ export default {
         
         // 截取图片路径
         let img = this.detialData.SliderBar;
-        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-        let arr = img.match(imgReg);
-        for(let m=0;m<arr.length;m++){
-            let imgArr = arr[m].split("\"");
-            this.imgList.push(imgArr[1]);
+        while (img.indexOf('src=')>=0) {
+            img=img.substring(img.indexOf('src=')+5);
+            this.imgList.push(img.substring(0,img.indexOf('" ')));
         }
     }).then((res)=>{ 
         document.title = this.detialData.Name + '_工程建设_业务范围' + '_上海隧道工程有限公司';
@@ -112,12 +110,12 @@ export default {
             span{
                 display: inline-block;
                 width: .6rem;
-                margin-right: .21rem;
+                // margin-right: .21rem;
             }
         }
         .describe{
             text-indent: .28rem;
-            margin-top: .19rem;
+            // margin-top: .19rem;
             /deep/img{
                 margin-top: .2rem;
                 width: 5rem;

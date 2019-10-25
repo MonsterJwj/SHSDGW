@@ -28,7 +28,7 @@
                         <div class="duty" v-html="props.row.Content"></div>
                         <div class="apply-er">
                             <a :href="props.row.href" target="_blank" class="apply">立即申请</a>
-                            <img :src="props.row.erHref">
+                            <img :src="props.row.erHref" v-if="props.row.erHref">
                         </div>
                     </el-form-item>
                     </el-form>
@@ -48,7 +48,7 @@ export default {
     return {
         totalPage:0,
         page:1,
-        pageSize:4,
+        pageSize:10,
         // 当搜索职位，使用分页器时，判断渲染哪个函数
         shouldFn:0,
         schoolData:[],
@@ -72,22 +72,27 @@ export default {
             PageControl: { PageSize:this.pageSize, PageIndex:this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
             this.schoolData = JSON.parse(res.data).Rows;
+            let timestamp = null,
+                nowStamp = null;
             for(let i=0;i<=this.schoolData.length-1;i++){
                 // 获取失效日期
                 let staleDated = this.schoolData[i].ExpiredDate;
-                let resdate = staleDated.replace(/-/g,"/");
-                // 失效日期时间戳
-                let timestamp = new Date(resdate).getTime();
-                // 当前时间戳
-                let nowStamp = new Date().getTime();
-                // 判断是否 日期失效
-                if(staleDated == "" || timestamp > nowStamp){
+                if(staleDated != null){
+                    let resdate = staleDated.replace(/-/g,"/");
+                    // 失效日期时间戳
+                    timestamp = new Date(resdate).getTime();
+                    // 当前时间戳
+                    nowStamp = new Date().getTime();
+                    // 判断是否 日期失效
+                }
+                if(staleDated == null || timestamp > nowStamp){
                     this.recruitStatus = "正在招聘"
                 }else{
                     this.recruitStatus = "已结束"
                 }
-            
-                this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
+                if(this.schoolData[i].PubDate != null){
+                    this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
+                }
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
 
@@ -100,7 +105,7 @@ export default {
                         continue;
                     }
                 }
-            }      
+            } 
         }).catch((err)=>{
             throw err;
         });
@@ -108,40 +113,33 @@ export default {
     currentPage(index){
         this.page = index;
         // 判断渲染职位请求的函数，还是全部职位的函数
-        if(shouldFn == 0){
+        if(this.shouldFn == 0){
             this.getdata();
         }else{
             this.search();
         }
         this.shouldFn = 0;
     },
-    getdata(){
+    getURL(){
         this.$axios.post('/api/Table/TableAction',{
-            Action: "SearchBlurEnabled",
-            DataJSONString: JSON.stringify({JobType:1}),
-            Resource: "Job",
-            PageControl: { PageSize:this.pageSize, PageIndex:this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
+            Action: "SearchByJobType",
+            FieldNames:['URLLink','ID','Memo'],
+            DataJSONString: JSON.stringify({ID:1}),
+            Resource: "CompanyInfo"
         }).then((res)=>{
-            this.schoolData = JSON.parse(res.data).Rows;
-            for(let i=0;i<=this.schoolData.length-1;i++){
-                // 获取失效日期
-                let staleDated = this.schoolData[i].ExpiredDate;
-                let resdate = staleDated.replace(/-/g,"/");
-                // 失效日期时间戳
-                let timestamp = new Date(resdate).getTime();
-                // 当前时间戳
-                let nowStamp = new Date().getTime();
-                // 判断是否 日期失效
-                if(staleDated == "" || timestamp > nowStamp){
-                    this.recruitStatus = "正在招聘"
-                }else{
-                    this.recruitStatus = "已结束"
-                }
-            
-                this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
-            }
-            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount; 
+            this.companyInfo = JSON.parse(res.data);
 
+            // 截取二维码的url
+            for(let k=0;k<this.companyInfo.length;k++){
+                if(this.companyInfo[k].Memo != ""){
+                    let erImg = this.companyInfo[k].Memo;
+                    while (erImg.indexOf('src=')>=0) {
+                        erImg=erImg.substring(erImg.indexOf('src=')+5);
+                        this.companyInfo[k].Memo = erImg.substring(0,erImg.indexOf('" '));
+                    }
+                }
+            }
+        }).then(()=>{
             for(let m=0;m<=this.schoolData.length-1;m++){
                 for(let n=0;n<=this.companyInfo.length-1;n++){
                     if(this.schoolData[m].CompanyInfoID == this.companyInfo[n].ID){
@@ -151,6 +149,45 @@ export default {
                     }
                 }
             }
+
+        })
+        .catch((err)=>{
+            throw err;
+        })
+    },
+    getdata(){
+        this.$axios.post('/api/Table/TableAction',{
+            Action: "SearchBlurEnabled",
+            DataJSONString: JSON.stringify({JobType:1}),
+            Resource: "Job",
+            PageControl: { PageSize:this.pageSize, PageIndex:this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
+        }).then((res)=>{
+            this.schoolData = JSON.parse(res.data).Rows;
+            let timestamp = null,
+                nowStamp = null;
+            for(let i=0;i<=this.schoolData.length-1;i++){
+                // 获取失效日期
+                let staleDated = this.schoolData[i].ExpiredDate;
+                if(staleDated != null){
+                    let resdate = staleDated.replace(/-/g,"/");
+                    // 失效日期时间戳
+                    timestamp = new Date(resdate).getTime();
+                    // 当前时间戳
+                    nowStamp = new Date().getTime();
+                    // 判断是否 日期失效
+                }
+                if(staleDated == null || timestamp > nowStamp){
+                    this.recruitStatus = "正在招聘"
+                }else{
+                    this.recruitStatus = "已结束"
+                }
+                if(this.schoolData[i].PubDate != null){
+                    this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
+                }
+            }
+            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount; 
+        }).then(()=>{
+            this.getURL();
         }).catch((err)=>{
             throw err;
         });
@@ -169,31 +206,6 @@ export default {
     }).catch((err)=>{
         throw err;
     });
-
-    this.$axios.post('/api/Table/TableAction',{
-        Action: "SearchByJobType",
-        FieldNames:['URLLink','ID','Memo'],
-        DataJSONString: JSON.stringify({ID:1}),
-        Resource: "CompanyInfo"
-    }).then((res)=>{
-        this.companyInfo = JSON.parse(res.data);
-
-         // 截取二维码的url
-        let imgReg = /<img\b.*?(?:\>|\/>)/gi;
-        for(let k=0;k<this.companyInfo.length;k++){
-            if(this.companyInfo[k].Memo != ""){
-                let erImg = this.companyInfo[k].Memo;
-                let erArr = erImg.match(imgReg);
-                for(let t=0;t<erArr.length;t++){
-                    let erUrl = erArr[t].split("\"");
-                    this.companyInfo[k].Memo = erUrl[1];
-                }
-            }
-        }
-        
-    }).catch((err)=>{
-        throw err;
-    })
 
     this.getdata();
     

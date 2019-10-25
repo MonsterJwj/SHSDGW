@@ -30,9 +30,9 @@
     </div>
     <!-- 侧边栏 二维码 -->
     <div class="equipment">
-        <img src="../assets/img/erweima.jpg">
+        <img src="../assets/img/erweima.png">
         <p>隧道股份</p>
-        <img src="../assets/img/g_erweima.jpg.png" alt="">
+        <img src="../assets/img/g_erweima.png" alt="">
         <p>上海隧道</p>
     </div>
   </div>
@@ -213,7 +213,7 @@
             FieldNames:['Name','ID'],
             DataJSONString: JSON.stringify({ID:1}),
             Resource: "CompanyInfo",
-            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex,ID"} //在存储过程中设定
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
           }).catch((err)=>{
@@ -228,7 +228,7 @@
             FieldNames:['Name','ID'],
             DataJSONString: JSON.stringify({ID:2}),
             Resource: "CompanyInfo",
-            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex,ID"}
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
           }).catch((err)=>{
@@ -243,7 +243,7 @@
             FieldNames:['Name','ID'],
             DataJSONString: JSON.stringify({ID:3}),
             Resource: "CompanyInfo",
-            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+            PageControl: { PageSize:0, PageIndex: 1, OrderBy: "DisplayIndex,ID"}
           }).then((res)=>{
             this.joinNav = JSON.parse(res.data);
           }).catch((err)=>{

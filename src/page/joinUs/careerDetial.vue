@@ -76,7 +76,7 @@ export default {
             letter-spacing: 0;
             color: #333333;
             text-indent: .28rem;
-            margin-top: .28rem;
+            // margin-top: .28rem;
         }
     }
 }

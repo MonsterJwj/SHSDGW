@@ -174,7 +174,7 @@ section {
 
 body {
     font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", sans-self;
-    color: #555;
+    color: #000;
 }
 
 em,
@@ -182,9 +182,9 @@ i {
     font-style: normal;
 }
 
-strong {
+/* strong {
     font-weight: normal;
-}
+} */
 
 .clearfix:after {
     content: "";
@@ -218,7 +218,6 @@ h5,
 h6 {
     font-size: 100%;
     font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", sans-self;
-    font-weight: normal;
 }
 
 fieldset,

@@ -102,7 +102,7 @@ export default {
                 line-height: .26rem;
                 text-indent: .25rem;
                 font-size: 14px;
-                margin-bottom: .25rem;
+                margin-bottom: .25rem;  //不能删，因为行业新闻后台添加空的p标签需要很大的工作量
             }
         }
         

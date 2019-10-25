@@ -38,12 +38,12 @@ export default {
     letter-spacing: 0rem;
     color: #333;
     .cont{
+        margin-top: 30px;
         /deep/span{
             display: block;
             height: auto;
         }
         /deep/img{
-            margin: .4rem auto;
             width: 7.9rem;
             max-width: 7.9rem;
         }
@@ -54,7 +54,6 @@ export default {
             background: #f7f7f7 url('../../assets/img/icon_word.png') no-repeat .2rem center;
             background-size: .14rem .16rem;
             text-indent: .4rem;
-
         }
     }         
 }

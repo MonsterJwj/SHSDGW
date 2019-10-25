@@ -14,16 +14,16 @@
       return {
         bannerList:[],
         swiperOption: {
-            autoplay: {
-                delay: 3000,//3秒切换一次
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-                },
-            loop:true
-            },
+          autoplay: {
+              delay: 3000,//3秒切换一次
+          },
+          pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+          },
+          loop:true
         }
+      }
     },
     mounted(){
       this.$axios.post('/api/Table/TableAction',{

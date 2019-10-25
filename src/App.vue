@@ -46,7 +46,7 @@ html,body{
   font-family: 'MicrosoftYaHei','Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #666;
+  /* color: #666; */
   position: absolute;
   top: 0;
   left: 50%;

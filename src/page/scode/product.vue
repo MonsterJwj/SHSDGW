@@ -13,12 +13,30 @@
             <img :src="contImg">
         </div>
         <div class="txt">
-            <span>装备制造</span>
-            <div class="equipment" v-html="equipmentList.Content"></div>
-            <span>构件</span>
-            <div class="component" v-html="componentList.Content"></div>
-            <span>防水材料</span>
-            <div class="waterproo" v-html="waterproofList.Content"></div>
+            <!-- <span id="equipment-title">装备制造</span> -->
+            <div id="equipment" v-if="equipmentList.length > 0">
+                <div class="equipment-cont" v-html="equipmentList[0].Content"></div>
+            </div>
+            <!-- <span id="component-title">构件</span> -->
+            <div id="component" v-if="componentList.length > 0">
+                <div class="component-cont" v-html="componentList[0].Content"></div>
+            </div>
+            <!-- <span id="waterproof-title">防水材料</span> -->
+            <div id="waterproof" v-if="waterproofList.length > 0">
+                <div class="waterproof-cont" v-html="waterproofList[0].Content"></div>
+            </div>
+            <!-- <span id="milepost-title">上海隧道里程碑</span> -->
+            <div id="milepost" v-if="milepostList.length > 0" >
+                <div class="milepost-cont" v-html="milepostList[0].Content"></div>
+                <div class="play-img" v-if="imgList.length > 0">
+                    <swiper :options="swiperOption" ref="mySwiper">
+                        <!-- slides -->
+                        <swiper-slide v-for="(item,index) in imgList" :key="index"><img :src="item" /></swiper-slide>
+                        <!-- Optional controls -->
+                        <div class="swiper-pagination"  slot="pagination"></div>
+                    </swiper>
+                </div>
+            </div>
         </div>
      </div>
  </div>
@@ -35,8 +53,22 @@ export default {
         componentList:[],
         // 防水材料请求过来的数据
         waterproofList:[],
+        // 上海隧道里程碑
+        milepostList:[],
         imgUrl:"",
-        contImg:""
+        contImg:"",
+        // 轮播图片
+        imgList:[],
+        swiperOption: {
+            autoplay: {
+                delay: 2000,//3秒切换一次
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            loop:true
+        }
     }
  },
  mounted(){
@@ -77,7 +109,10 @@ export default {
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ECDate DESC"}
     }).then((res)=>{
-        this.equipmentList = JSON.parse(res.data).Rows[0];
+        this.equipmentList = JSON.parse(res.data).Rows;
+        // if( this.equipmentList.length == 0){
+        //     document.getElementById('equipment-title').style.display = 'none';
+        // }
     }).catch((err)=>{
       throw err;
     });
@@ -89,7 +124,10 @@ export default {
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.componentList = JSON.parse(res.data).Rows[0];
+        this.componentList = JSON.parse(res.data).Rows;
+        // if( this.componentList.length == 0){
+        //     document.getElementById('component-title').style.display = 'none';
+        // }
     }).catch((err)=>{
       throw err;
     });
@@ -101,7 +139,33 @@ export default {
         Resource: "Manufacture",
         PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
-        this.waterproofList = JSON.parse(res.data).Rows[0];
+        this.waterproofList = JSON.parse(res.data).Rows;
+        // if( this.waterproofList.length == 0){
+        //     document.getElementById('waterproof-title').style.display = 'none';
+        // }
+    }).catch((err)=>{
+      throw err;
+    });
+    // 上海隧道里程碑
+    this.$axios.post('/api/Table/TableAction',{
+        Action: "SearchBlurEnabled",
+        FieldNames:['Content','Memo'],
+        DataJSONString: JSON.stringify({ ProductType: 4 }),
+        Resource: "Manufacture",
+        PageControl: { PageSize: 1, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
+    }).then((res)=>{
+        this.milepostList = JSON.parse(res.data).Rows;
+        // if( this.milepostList.length == 0){
+        //     document.getElementById('milepost-title').style.display = 'none';
+        // }
+        if(this.milepostList[0].Memo != null){
+            // 截取img的src路径
+            let img = this.milepostList[0].Memo;
+            while (img.indexOf('src=')>=0) {
+                img=img.substring(img.indexOf('src=')+5);
+                this.imgList.push(img.substring(0,img.indexOf('" ')));
+            }
+        }
     }).catch((err)=>{
       throw err;
     });
@@ -126,7 +190,7 @@ export default {
     }
     span{
         display: inline-block;
-        width: .80rem;
+        padding: 0 .2rem;
         height: .30rem;
         text-align: center;
         line-height: .30rem;
@@ -150,6 +214,19 @@ export default {
             line-height: .26rem;
             letter-spacing: 0rem;
             color: #333;
+        }
+    }
+    /deep/.milepost-cont{
+        font-size: 14px;
+        line-height: .26rem;
+    }
+    .play-img{
+        margin-top: .17rem;
+        img{
+            max-width: 800px;
+            max-height: 450px;
+            margin: 0 auto;
+            display: block;
         }
     }
 }

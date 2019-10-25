@@ -42,7 +42,6 @@ export default {
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
       this.historyList = JSON.parse(res.data).Rows[0];
-      console.log(this.historyList.Content)
     }).catch((err)=>{
       throw err;
     });
@@ -64,11 +63,9 @@ export default {
         font-size: 14px;
         padding: 0 .20rem .20rem .20rem;
         /deep/p{
-            font-weight: bold;
             line-height: .26rem;
             letter-spacing: 0rem;
-            color: #004387;
-            margin: .34rem 0;
+            color: #000;
         }
         /deep/ul{
             font-size: 14px;

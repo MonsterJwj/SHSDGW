@@ -34,10 +34,9 @@ export default {
         /deep/div{
             display: flex;
             justify-content: center;
+            margin-top: 30px;
             img{
-                margin-top: .4rem;
                 width: 7.57rem;
-                height: 9.46rem;
                 max-width: 7.57rem;
             }
         }
