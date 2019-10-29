@@ -36,7 +36,7 @@
             </el-table-column>
         </el-table>
     </div>
-    <div class="page"><Pagination :total='totalPage' :page="page" @currentPage="currentPage"></Pagination></div>
+    <div class="page"><Pagination :total='totalPage' :page="page" :pageSize="pageSize" @currentPage="currentPage"></Pagination></div>
  </div>
 </template>
 
@@ -185,7 +185,7 @@ export default {
                     this.schoolData[i].PubDate = this.schoolData[i].PubDate.substring(0,10);
                 }
             }
-            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount; 
+            this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
         }).then(()=>{
             this.getURL();
         }).catch((err)=>{

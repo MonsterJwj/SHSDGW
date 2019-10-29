@@ -36,7 +36,7 @@
             </el-table-column>
         </el-table>
     </div>
-    <div class="page"><Pagination :total='totalPage' :page="page" @currentPage="currentPage"></Pagination></div>
+    <div class="page"><Pagination :total='totalPage' :page="page" :pageSize="pageSize" @currentPage="currentPage"></Pagination></div>
  </div>
 </template>
 

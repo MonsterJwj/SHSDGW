@@ -61,6 +61,7 @@ export default {
             font-size: 24px;
             font-stretch: normal;
             line-height: .36rem;
+            margin-bottom: .2rem;
         }
         .textDec{
             width: 100%;

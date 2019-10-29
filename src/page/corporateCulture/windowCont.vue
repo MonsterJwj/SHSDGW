@@ -71,7 +71,7 @@ export default {
     },
     // 使本页面只播放一个视频
     playVideo(index, e){
-        if(e.target.className.indexOf('outter') > -1 || (e.target.className.indexOf('prism-play-btn') > -1 && e.target.className.indexOf('playing') > -1)){
+        if(e.target.classList.contains('outter') || (e.target.classList.contains('prism-play-btn') && e.target.classList.contains('playing'))){
             this.player[index].play();
             if(this.oldIndex > -1){
                 this.player[this.oldIndex].pause();

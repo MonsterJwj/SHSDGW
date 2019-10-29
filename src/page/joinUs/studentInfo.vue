@@ -206,7 +206,6 @@ export default {
             this.search();
         }
         this.shouldFn = 0;
-        console.log(this.shouldFn)
     },
     getdata(){
         this.$axios.post('/api/Table/TableAction',{
@@ -240,6 +239,7 @@ export default {
                 }
             }
             this.totalPage = JSON.parse(res.data).PagingInfo.AllRecordCount;
+            
         }).catch((err)=>{
             throw err;
         });
