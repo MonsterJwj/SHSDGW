@@ -32,11 +32,8 @@ export default {
 .research{
     .researchPic{
         /deep/div{
-            display: flex;
-            justify-content: center;
             margin-top: 30px;
             img{
-                width: 7.57rem;
                 max-width: 7.57rem;
             }
         }

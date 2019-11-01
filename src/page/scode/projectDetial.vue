@@ -82,7 +82,7 @@ export default {
 <style scoped lang="less">
 .projectDetial{
     margin: .23rem .2rem 0 .2rem;
-    padding: .2rem .2rem .33rem .18rem;
+    padding: .2rem .18rem .33rem .18rem;
     background: #f8f8f8;
 
     .mainDeti{
@@ -102,24 +102,18 @@ export default {
         }
         /deep/p{
             font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
             line-height: .24rem;
-            letter-spacing: 0;
             color: #333333;
             span{
                 display: inline-block;
                 width: .6rem;
-                // margin-right: .21rem;
             }
         }
         .describe{
-            text-indent: .28rem;
-            // margin-top: .19rem;
             /deep/img{
                 margin-top: .2rem;
                 width: 5rem;
-                height: 3rem;
+                max-height: 5rem;
                 max-width: 5rem;
             }
         }
@@ -127,18 +121,12 @@ export default {
     .introduce{
         /deep/p{
             font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
             line-height: .24rem;
-            letter-spacing: 0;
             color: #333333;
         }
         /deep/li{
             font-size: 14px;
-            font-weight: normal;
-            font-stretch: normal;
             line-height: .24rem;
-            letter-spacing: 0;
             color: #333333;
         }
     }
