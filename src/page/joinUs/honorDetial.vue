@@ -2,9 +2,6 @@
  <div class="honorDetial">
     <div class="title">
         <h4>{{honorData.Name}}</h4>
-        <div class="return">
-            <router-link to="/joinUs/columnintroduced">返回</router-link>
-        </div>
     </div>
     <div class="txtDes" v-html="honorData.Content"></div>
  </div>
@@ -60,7 +57,9 @@ export default {
             letter-spacing: 0;
             color: #333333;
             text-indent: .28rem;
-            // margin-top: .28rem;
+        }
+        /deep/img{
+            max-width: 11.39rem;
         }
     }
 }

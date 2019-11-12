@@ -40,7 +40,6 @@ export default {
         }
     }
     img{
-        width: 11.9rem;
         max-width: 11.9rem;
     }
     .titleSel{

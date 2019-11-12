@@ -14,9 +14,6 @@ export default {
         careerData:[]
     }
  },
- methods: {
-
- },
  mounted(){
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",
@@ -31,9 +28,6 @@ export default {
     }).catch((err)=>{
         throw err;
     });
- },
- components: {
-
  }
 }
 </script>
@@ -76,7 +70,9 @@ export default {
             letter-spacing: 0;
             color: #333333;
             text-indent: .28rem;
-            // margin-top: .28rem;
+        }
+        /deep/img{
+            max-width: 11.39rem;
         }
     }
 }

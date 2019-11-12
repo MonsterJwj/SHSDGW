@@ -83,8 +83,6 @@ export default {
         padding: .20rem;
         background: #f7f7f7;
         img{
-            width: 11.1rem;
-            height: 3.67rem;
             max-width: 11.1rem;
         }
     }
@@ -104,6 +102,9 @@ export default {
             line-height: .26rem;
             letter-spacing: 0rem;
             color: #333;
+        }
+        img{
+            max-width: 11.39rem;
         }
     }
 }

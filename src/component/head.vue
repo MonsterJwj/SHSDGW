@@ -47,7 +47,6 @@ export default {
     img{
         width: 2.35rem;
         height: .55rem;
-        max-width: 2.35rem;
     }
     .sea{
         flex: 1;

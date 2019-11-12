@@ -70,8 +70,7 @@ export default {
                 color: #333333;
                 line-height: .26rem;
                 img{
-                    width: 5.57rem;
-                    max-width: 5.57rem;
+                    max-width: 11rem;
                 }
             }
             

@@ -28,7 +28,6 @@ import CurrentStudents from '../page/joinUs/CurrentStudents.vue'
 import Internship from '../page/joinUs/Internship.vue'
 import StudentInfo from '../page/joinUs/studentInfo.vue'
 import CareerDetial from '../page/joinUs/careerDetial.vue'
-import TalentDetial from '../page/joinUs/talentDetial.vue'
 import HonorDetial from '../page/joinUs/honorDetial.vue'
 import InternshipInfo from '../page/joinUs/internshipInfo.vue'
 import SocialInfo from '../page/joinUs/SocialInfo'
@@ -173,11 +172,6 @@ const router = new Router({
               path: 'careerdetial',
               name: 'CareerDetial',
               component: CareerDetial
-            },
-            {
-              path: 'talentdetial',
-              name: 'TalentDetial',
-              component: TalentDetial
             },
             {
               path: 'honordetial',

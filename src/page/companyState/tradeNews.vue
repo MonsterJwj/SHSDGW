@@ -11,12 +11,12 @@
         <div class="cont">
             <!-- 最上方的大新闻 -->
             <div class="mainNew" v-if="styShow">
-                <img :src="tradeList.ImagePath">
+                <router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' target="_blank"><img :src="tradeList.ImagePath"></router-link>
                 <div class="main_dec">
-                <h4>{{tradeList.Name}}</h4>
-                <p class="time">{{tradeList.PubDate | FormatTime}}</p>
-                <p>{{tradeList.Overview}}</p>
-                <div class="lookDet"><router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' target="_blank">查看详情</router-link></div>
+                    <router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' target="_blank"><h4>{{tradeList.Name}}</h4></router-link>
+                    <p class="time">{{tradeList.PubDate | FormatTime}}</p>
+                    <p>{{tradeList.Overview}}</p>
+                    <div class="lookDet"><router-link :to='"/state/tradeNews/tradedetial/"+tradeList.ID' target="_blank">查看详情</router-link></div>
                 </div>
             </div>
              <div class="small_news" v-else>
@@ -220,8 +220,6 @@ export default {
         }
         img{
             margin-right: .8rem;
-            width: 5rem;
-            height: 3rem;
             max-width: 5.2rem;
         }
         .lookDet{
@@ -256,7 +254,6 @@ export default {
             margin-left: .76rem;
             width: 1rem;
             height: 1.02rem;
-            max-width: 1rem;
         }
     }
 }

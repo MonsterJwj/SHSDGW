@@ -11,12 +11,12 @@
         <div class="cont">
             <!-- 判断后台列表图片字段里是否有图片，如果有就取这个。如果没有就取内容字段里的第一张图片，如果还没有那就把这条新闻的列表格式改成没图片的样子。 -->
             <div class="mainNew" v-if="styShow">
-                <img :src="NewsList.ImagePath">
+                <router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' target="_blank"><img :src="NewsList.ImagePath"></router-link>
                 <div class="main_dec">
-                <h4>{{NewsList.Name}}</h4>
-                <p class="time">{{NewsList.PubDate | FormatTime}}</p>
-                <p>{{NewsList.Overview}}</p>
-                <div class="lookDet"><router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' target="_blank">查看详情</router-link></div>
+                    <router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' target="_blank"><h4>{{NewsList.Name}}</h4></router-link>
+                    <p class="time">{{NewsList.PubDate | FormatTime}}</p>
+                    <p>{{NewsList.Overview}}</p>
+                    <div class="lookDet"><router-link :to='"/state/companyNews/companydetial/"+NewsList.ID' target="_blank">查看详情</router-link></div>
                 </div>
             </div>
             <div class="small_news" v-else>
@@ -222,8 +222,6 @@ export default {
         }
         img{
             margin-right: .80rem;
-            width: 5rem;
-            height: 3rem;
             max-width: 5.2rem;
         }
         .lookDet{
@@ -259,7 +257,6 @@ export default {
             margin-left: .76rem;
             width: 1rem;
             height: 1.02rem;
-            max-width: 1rem;
         }
     }
 }

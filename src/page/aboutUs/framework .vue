@@ -57,9 +57,7 @@ export default {
 <style scoped lang="less">
 .frameImg{
     /deep/img{
-        margin-left: .61rem;
-        width:10.69rem;
-        max-width: 10.69rem;
+        max-width: 11.39rem;
     }
 }
 </style>

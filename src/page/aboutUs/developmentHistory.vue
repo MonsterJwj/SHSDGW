@@ -62,6 +62,9 @@ export default {
     .his_content{
         font-size: 14px;
         padding: 0 .20rem .20rem .20rem;
+        /deep/img{
+            max-width: 11.39rem;
+        }
         /deep/p{
             line-height: .26rem;
             letter-spacing: 0rem;

@@ -94,9 +94,7 @@ export default {
             display: flex;
             flex-direction: column;
             /deep/img{
-                width: 6rem;
-                max-width: 7rem;
-                display: inline-block;
+                max-width: 11.39rem;
             }
             /deep/p{
                 line-height: .26rem;

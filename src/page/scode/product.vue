@@ -183,8 +183,6 @@ export default {
         padding: .20rem;
         background: #f7f7f7;
         img{
-            width: 11.1rem;
-            height: 3.67rem;
             max-width: 11.1rem;
         }
     }
@@ -215,6 +213,9 @@ export default {
             letter-spacing: 0rem;
             color: #333;
         }
+        /deep/img{
+            max-width: 11.39rem;
+        }
     }
     /deep/.milepost-cont{
         font-size: 14px;
@@ -223,8 +224,8 @@ export default {
     .play-img{
         margin-top: .17rem;
         img{
-            max-width: 800px;
-            max-height: 450px;
+            max-width: 11.5rem;
+            max-height: 4.5rem;
             margin: 0 auto;
             display: block;
         }

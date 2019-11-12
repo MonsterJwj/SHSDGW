@@ -34,7 +34,7 @@ export default {
         /deep/div{
             margin-top: 30px;
             img{
-                max-width: 7.57rem;
+                max-width: 11.39rem;
             }
         }
     }

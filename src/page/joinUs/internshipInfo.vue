@@ -343,7 +343,6 @@ export default {
             width: 6rem;
             height: 4rem;
             border: .06rem solid #fff;
-            max-width: 6rem;
         }
         video{
             width: 6rem;
@@ -370,7 +369,6 @@ export default {
         width: 11.9rem;
         color: #fff;
         &>img{
-            width: 11.9rem;
             max-width: 11.9rem;
         }
         .topNav{
@@ -384,7 +382,7 @@ export default {
             img{
                 width: 3rem;
                 height: 2rem;
-                max-width: 3rem;
+                cursor: pointer;
             }
             .swiper-container .swiper-wrapper{
                 position: absolute!important;
@@ -482,8 +480,6 @@ export default {
     display: flex;
     align-items: center;
     img{
-        width: 1rem;
-        height: 1rem;
         margin-left: .6rem;
         max-width: 1rem;
     }

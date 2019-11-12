@@ -141,7 +141,6 @@ export default {
                     img{
                         width: 2.64rem;
                         height: 1.38rem;
-                        max-width: 2.64rem;
                     }
                     p{
                         line-height: .28rem;

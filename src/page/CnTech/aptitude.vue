@@ -99,7 +99,6 @@ export default {
         img{
             width: 1rem;
             height: 1.02rem;
-            max-width: 1rem;
         }
     }
 }

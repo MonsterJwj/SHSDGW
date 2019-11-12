@@ -60,6 +60,5 @@
 .home .swiper-slide img{
   width: 11.9rem;
   height: 4.41rem;
-  max-width: 11.9rem;
 }
 </style>

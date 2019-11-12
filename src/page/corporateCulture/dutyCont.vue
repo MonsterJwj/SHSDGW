@@ -44,8 +44,7 @@ export default {
             height: auto;
         }
         /deep/img{
-            width: 7.9rem;
-            max-width: 7.9rem;
+            max-width: 11.39rem;
         }
         /deep/.ke-insertfile>span{
             height: .4rem;

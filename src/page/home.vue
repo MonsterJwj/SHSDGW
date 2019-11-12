@@ -24,12 +24,6 @@ export default {
     picsList:[]
   }
  },
- methods: {
-
- },
- computed: {
-  
- },
  mounted(){
    this.$axios.post('/api/Table/TableAction',{
         Action: "SearchBlurEnabled",

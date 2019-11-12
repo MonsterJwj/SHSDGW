@@ -239,8 +239,6 @@ export default {
     align-items: center;
 }
 .apply-er img{
-    width: 1rem;
-    height: 1rem;
     margin-left: .6rem;
     max-width: 1rem;
 }

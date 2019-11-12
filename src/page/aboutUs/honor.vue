@@ -35,6 +35,7 @@ mounted(){
     }).catch((err)=>{
         throw err;
     });
+
     this.$axios.post('/api/Table/TableAction',{
         Action: "SearchAllEnabled",
         FieldNames:['Content'],
@@ -43,6 +44,7 @@ mounted(){
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.honorList = JSON.parse(res.data).Rows[0];
+        // console.log(this.honorList.Content);
     }).catch((err)=>{
       throw err;
     });

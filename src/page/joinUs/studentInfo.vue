@@ -198,9 +198,7 @@ export default {
     currentPage(index){
         this.page = index;
         // 判断渲染职位请求的函数，还是全部职位的函数
-        console.log(this.shouldFn)
         if(this.shouldFn == 0){
-            console.log(1111)
             this.getdata();
         }else{
             this.search();
@@ -349,7 +347,6 @@ export default {
             width: 6rem;
             height: 4rem;
             border: .06rem solid #fff;
-            max-width: 6rem;
         }
         video{
             width: 6rem;
@@ -376,7 +373,6 @@ export default {
         width: 11.9rem;
         color: #fff;
         &>img{
-            width: 11.9rem;
             max-width: 11.9rem;
         }
         .topNav{
@@ -391,7 +387,6 @@ export default {
                 width: 3rem;
                 height: 2rem;
                 cursor: pointer;
-                max-width: 3rem;
             }
             .swiper-container .swiper-wrapper{
                 position: absolute!important;
@@ -492,8 +487,6 @@ export default {
     display: flex;
     align-items: center;
     img{
-        width: 1rem;
-        height: 1rem;
         margin-left: .6rem;
         max-width: 1rem;
     }

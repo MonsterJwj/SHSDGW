@@ -1,5 +1,5 @@
 <template>
- <div class="culture">
+ <div>
     <div class="text" v-html="cultureList.Content"></div>
  </div>
 </template>
@@ -28,33 +28,11 @@ export default {
 </script>
 
 <style scoped lang="less">
-.culture{
-    position: relative;
-    color: #333;
-    /deep/h6{
-        font-weight: bold;
-        margin-top: .25rem;
-    }
-    /deep/h6,p{
-        line-height: .26rem;
-        font-size: 14px;
-
+.text{
+    width: 100%;
+    /deep/div{
         img{
-            position: absolute;
-            right: .31rem;
-            top: .25rem;
-
-            width: 3.4rem;
-            max-width: 3.4rem;
-        }      
-    }
-    .text{
-        width: 7.19rem;
-        /deep/div{
-            img{
-                width: 7rem;
-                max-width: 7rem;
-            }
+            max-width: 11.39rem;
         }
     }
 }

@@ -112,7 +112,6 @@ export default {
         .describe{
             /deep/img{
                 margin-top: .2rem;
-                width: 5rem;
                 max-height: 5rem;
                 max-width: 5rem;
             }
@@ -137,7 +136,6 @@ export default {
             width: 5.6rem;
             height: 3.4rem;
             cursor: pointer;
-            max-width: 5.6rem;
         }
         .smallPic{
             margin-top: .2rem;
@@ -155,7 +153,6 @@ export default {
             img{
                 width: 1.21rem;
                 height: .73rem;
-                max-width: 1.21rem;
                 margin: 0;
             }
             .swiper-button-prev{
