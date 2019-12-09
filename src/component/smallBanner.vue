@@ -28,7 +28,7 @@ export default {
     overflow: hidden;
     .topNav{
         background: #004387;
-        height: .30rem;
+        height: .4rem;
         display: flex;
         align-items: center;
         .arrows{

@@ -111,7 +111,7 @@ article{
   }
   .el-pager li{
     padding: 0 .07rem;
-    font-size: .12rem;
+    font-size: 14px;
     height: .32rem;
     line-height: .32rem;
     width: .34rem;
@@ -145,7 +145,7 @@ article{
   }
   .topNav .el-breadcrumb__inner{
     color: #fff;
-    font-size: .12rem;
+    font-size: 14px;
   }
   .topNav .el-breadcrumb__inner.is-link{
     color: #fff;
@@ -167,7 +167,7 @@ article{
   }
   .topNav .el-breadcrumb__item:last-child .el-breadcrumb__inner{
     color: #fff;
-    font-size: .12rem;
+    font-size: 14px;
   }
   .topNav .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
     color: #fff;

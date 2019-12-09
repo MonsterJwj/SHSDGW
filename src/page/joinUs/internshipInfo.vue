@@ -340,13 +340,13 @@ export default {
         height: 970px;
         position: relative;
         img{
-            width: 6rem;
-            height: 4rem;
+            max-width: 10rem;
+            max-height: 7rem;
             border: .06rem solid #fff;
         }
         video{
-            width: 6rem;
-            height: 4rem;
+            width: 10rem;
+            height: 7rem;
             border: .06rem solid #fff;
         }
         span{

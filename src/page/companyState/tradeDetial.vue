@@ -86,7 +86,10 @@ export default {
         h5{
             font-size: 24px;
             font-stretch: normal;
-            line-height: .36rem;
+            line-height: .45rem;
+            width: 100%;
+            text-align: center;
+
         }
         .describe{
             width: 100%;
