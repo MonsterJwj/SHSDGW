@@ -373,7 +373,7 @@ export default {
         }
         .topNav{
             background: #004387;
-            height: .30rem;
+            height: .35rem;
             display: flex;
             align-items: center;
         }
