@@ -44,7 +44,7 @@ mounted(){
         PageControl: { PageSize: 0, PageIndex: 1, OrderBy: "DisplayIndex DESC,ID DESC"}
     }).then((res)=>{
         this.honorList = JSON.parse(res.data).Rows[0];
-        // console.log(this.honorList.Content);
+        this.honorList.Content = this.honorList.Content.replace(/<p>\n\t<br \/>\n<\/p>/g,'<br />');
     }).catch((err)=>{
       throw err;
     });
@@ -67,9 +67,6 @@ mounted(){
         color: #333333;
         padding-left: 13px;
         background: url('./../../assets/img/blue-dian.png') no-repeat left center;
-        br{
-            display: none;
-        }
     }
 }
 </style>

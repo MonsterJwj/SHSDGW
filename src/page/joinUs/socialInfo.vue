@@ -154,7 +154,7 @@ export default {
 
         this.$axios.post('/api/Table/TableAction',{
             Action: "SearchBlurEnabled",
-            DataJSONString: JSON.stringify({JobType:2,Name:txt}),
+            DataJSONString: JSON.stringify({JobType:2,CompanyInfoID:this.$route.params.id,Name:txt}),
             Resource: "Job",
             PageControl: { PageSize:this.pageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{

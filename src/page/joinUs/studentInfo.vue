@@ -153,7 +153,7 @@ export default {
         //  获取对应招聘类型  公司的企业校园招聘职位信息
         this.$axios.post('/api/Table/TableAction',{
             Action: "SearchBlurEnabled",
-            DataJSONString: JSON.stringify({JobType:1,Name:txt}),
+            DataJSONString: JSON.stringify({JobType:1,CompanyInfoID:this.$route.params.id,Name:txt}),
             Resource: "Job",
             PageControl: { PageSize:this.pageSize, PageIndex: this.page, OrderBy: "DisplayIndex DESC,ID DESC"}
         }).then((res)=>{
